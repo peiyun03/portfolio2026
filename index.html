@@ -278,15 +278,15 @@
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm">
                     <div class="space-y-1">
-                        <p class="font-bold text-clay uppercase tracking-widest text-[12px]">生日</p>
+                        <p class="font-bold text-clay uppercase tracking-widest text-[18px]">生日</p>
                         <p class="opacity-80">2003年09月23日</p>
                     </div>
                     <div class="space-y-1">
-                        <p class="font-bold text-clay uppercase tracking-widest text-[12px]">學歷背景</p>
+                        <p class="font-bold text-clay uppercase tracking-widest text-[18px]">學歷背景</p>
                         <p class="opacity-80">銘傳大學 商業設計系</p>
                     </div>
                     <div class="space-y-1">
-                        <p class="font-bold text-clay uppercase tracking-widest text-[12px]">所在地點</p>
+                        <p class="font-bold text-clay uppercase tracking-widest text-[18px]">所在地點</p>
                         <p class="opacity-80">台北 / 台灣</p>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
                     </a>
                 </div>
 
-                <!-- 02 日記 App (維持上次優化後的手機版橫向排版) -->
+                <!-- 02 日記 App -->
                 <div class="work-item" data-category="app">
                     <div class="group">
                         <div class="mb-3 flex items-baseline gap-3">
@@ -386,7 +386,7 @@
                     </div>
                 </div>
 
-                <!-- 05 紙祀 (本次調整：手機版增加高度範圍以容納直向照片) -->
+                <!-- 05 紙祀 -->
                 <div class="work-item md:col-span-2 mt-8" data-category="product">
                     <div class="border-t border-pink-100 pt-16 group">
                         <div class="flex items-baseline gap-4 mb-8">
@@ -484,7 +484,7 @@
             else nav.classList.remove('scrolled');
         });
 
-        // 作品篩選
+        // 作品篩選並跳轉
         function filterWorks(category) {
             const items = document.querySelectorAll('.work-item');
             const buttons = document.querySelectorAll('.filter-btn');
@@ -492,13 +492,16 @@
             const noWorks = document.getElementById('no-works');
             let hasVisible = false;
 
+            // 切換按鈕狀態
             buttons.forEach(btn => {
                 if (btn.dataset.filter === category) btn.classList.add('active');
                 else btn.classList.remove('active');
             });
 
+            // 更新標籤文字
             tag.innerText = category === 'all' ? 'all collections.' : category + ' collection.';
 
+            // 執行篩選邏輯
             items.forEach(item => {
                 const itemCat = item.dataset.category;
                 if (category === 'all' || itemCat === category) {
@@ -509,8 +512,12 @@
                 }
             });
 
+            // 處理無作品狀態
             if (!hasVisible) noWorks.classList.remove('hidden');
             else noWorks.classList.add('hidden');
+
+            // 【新增功能】：點擊後自動跳轉至作品集區塊
+            window.location.hash = '#content';
         }
     </script>
 </body>
