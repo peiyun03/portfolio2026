@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鐘霈芸 Pei-Yun Chung | Portfolio</title>
+    <title>鐘霈芸 | Portfolio</title>
     <!-- 引入樣式與字體 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Zeyada&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
             --accent-pink: #f4d9d9;
             --soft-white: #ffffff;
             --clay: #a68b81;
+            --deep-brown: #4a3a35;
         }
         body {
             font-family: 'Noto Sans TC', sans-serif;
@@ -27,6 +28,33 @@
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-hand { font-family: 'Zeyada', cursive; }
         
+        /* 導覽列捲動效果 */
+        nav {
+            transition: all 0.4s ease-in-out;
+        }
+        nav.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        /* 頁尾動態跑馬燈 - 優雅的速度 */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+        }
+
         .grid-item {
             aspect-ratio: 1 / 1;
             background-color: var(--soft-white);
@@ -71,7 +99,7 @@
             .zhisi-grid { grid-template-columns: 1fr; }
             .work-header { flex-direction: row; align-items: center; }
         }
-        /* 影片容器處理 */
+        
         .video-container {
             background-color: #000;
             position: relative;
@@ -90,9 +118,9 @@
 <body class="antialiased">
 
     <!-- 頂部導覽列 -->
-    <nav class="fixed top-0 left-0 w-full z-50 p-6 md:p-10 flex justify-between items-center bg-transparent">
-        <div class="text-2xl font-serif font-bold text-clay tracking-tighter">PeiYun's Portfolio</div>
-        <div class="space-x-8 text-xs tracking-[0.3em] uppercase hidden md:flex font-bold">
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 p-6 md:px-10 md:py-8 flex justify-between items-center">
+        <div class="text-xl font-serif font-bold text-clay tracking-tighter">PeiYun's Portfolio</div>
+        <div class="space-x-8 text-[10px] tracking-[0.3em] uppercase hidden md:flex font-bold">
             <a href="#home" class="hover:text-pink-400 transition">Home</a>
             <a href="#about" class="hover:text-pink-400 transition">About</a>
             <a href="#content" class="hover:text-pink-400 transition">Works</a>
@@ -112,10 +140,22 @@
             </div>
         </div>
         <div class="w-full md:w-1/2">
-            <div class="inline-block px-3 py-1 bg-white rounded-full text-[10px] tracking-widest uppercase mb-4 shadow-sm border border-pink-100">Design Portfolio 2026</div>
-            <h1 class="text-7xl md:text-9xl font-serif font-bold leading-[0.8] mb-6 text-[#4a3a35]">Portfolio</h1>
-            <p class="text-2xl font-serif italic text-clay mb-2">Pei-Yun, Chung</p>
-            <p class="text-gray-400 text-sm tracking-[0.5em] font-light">鐘 霈 芸 / 行 銷 設 計 </p>
+            <div class="inline-block px-3 py-1 bg-white rounded-full text-[9px] tracking-widest uppercase mb-6 shadow-sm border border-pink-100/50">Fresh Graduate 2026</div>
+            <h1 class="text-7xl md:text-9xl font-serif font-bold leading-[0.8] mb-8 text-[#4a3a35]">Portfolio</h1>
+            <div class="space-y-6">
+                <div class="flex items-baseline gap-4">
+                    <h2 class="text-3xl md:text-4xl font-medium tracking-[0.3em] text-[#4a3a35]">鐘霈芸</h2>
+                    <span class="text-base md:text-lg font-serif italic text-gray-400 tracking-wide">Pei-Yun Chung</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="h-[1px] w-10 bg-pink-300"></div>
+                    <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                        <p class="text-xs md:text-sm tracking-[0.5em] font-medium text-clay uppercase">行 銷 設 計</p>
+                        <span class="hidden md:block text-pink-200 font-thin">|</span>
+                        <p class="text-[10px] tracking-[0.1em] font-light text-gray-400 uppercase italic">Marketing & Graphic Designer</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -125,7 +165,7 @@
             <div class="w-full md:w-2/5">
                 <div class="bg-white p-3 rounded-2xl shadow-xl transform -rotate-2">
                     <div class="aspect-[4/5] bg-[#fdf2f2] rounded-xl overflow-hidden relative">
-                        <img src="images/profile.png" alt="Pei-Yun" class="portfolio-img">
+                        <img src="images/profile.png" alt="鐘霈芸個人照" class="portfolio-img">
                     </div>
                 </div>
             </div>
@@ -134,7 +174,6 @@
                 <p class="text-lg leading-[2] mb-10 text-gray-600 font-light">
                     我習慣從觀察中推導事情的脈絡，整理問題與方向，做事講求條理與效率，也重視實際執行的完整度。對新事物總抱有高度好奇，享受接觸陌生領域時的學習過程與成就感。面對不同的人與狀況時，能快速理解需求並靈活應對，在溝通與合作中找到適合的平衡方式。
                 </p>
-                <!-- 加回個人資訊列表 -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm">
                     <div class="space-y-1">
                         <p class="font-bold text-clay uppercase tracking-widest text-[10px]">生日</p>
@@ -160,26 +199,21 @@
                 <h2 class="text-4xl font-serif italic">Content</h2>
                 <span class="font-hand text-2xl text-pink-400">selected projects.</span>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 items-start">
-                
-                <!-- 01 麵包坊 -->
                 <a href="https://breadnbutterbakery.webflow.io" target="_blank" class="group work-card block">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200">01</span>
-                            <h3 class="text-lg font-serif font-bold">麵包坊網站</h3>
+                            <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">01</span>
+                            <h3 class="text-lg font-serif font-bold flex items-center gap-2">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-[#fcf9f8] rounded-xl overflow-hidden">
-                            <img src="images/web_bread.png" alt="Web Design" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            <img src="images/web_bread.png" alt="麵包坊網站設計" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
-                    <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計 </p>
+                    <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計</p>
                 </a>
-
-                <!-- 02 日記 App (Mockup 圖 + 自動播放影片) -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -190,7 +224,7 @@
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2 bg-gray-50 rounded-xl">
                             <div class="h-full aspect-square overflow-hidden rounded-xl bg-white shadow-sm">
-                                <img src="images/app_diary_mockup.png" alt="App Mockup" class="portfolio-img">
+                                <img src="images/app_diary_mockup.png" alt="日記 App 模型" class="portfolio-img">
                             </div>
                             <div class="h-full aspect-[9/16] video-container shadow-lg">
                                 <video autoplay loop muted playsinline preload="auto">
@@ -201,8 +235,6 @@
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">UI/UX 設計</p>
                 </div>
-
-                <!-- 03 偶像手牌 -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -212,18 +244,16 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden">
-                            <img src="images/graphic_idol.png" alt="Graphic Design" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            <img src="images/graphic_idol.png" alt="偶像應援手牌設計" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
-
-                <!-- 04 微電影 (自動播放預覽影片) -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200">04</span>
-                            <h3 class="text-lg font-serif font-bold">微電影作品</h3>
+                            <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">04</span>
+                            <h3 class="text-lg font-serif font-bold flex items-center gap-2">微電影作品<i data-lucide="play-circle" class="w-5 h-5 text-red-400 opacity-60"></i></h3>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
@@ -233,28 +263,26 @@
                             </video>
                         </div>
                     </div>
-                    <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯 </p>
+                    <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯</p>
                 </div>
             </div>
-
-            <!-- 05 紙祀 (包含自動播放影片) -->
             <div class="mt-16 pt-16 border-t border-pink-100 group">
                 <div class="flex items-baseline gap-4 mb-8">
-                    <span class="text-4xl font-serif text-pink-200">05</span>
+                    <span class="text-4xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">05</span>
                     <h3 class="text-2xl font-serif font-bold tracking-tight">Zhi-Si 紙祀</h3>
                 </div>
                 <div class="bg-white p-3 rounded-3xl shadow-sm">
                     <div class="zhisi-grid min-h-[500px]">
                         <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
-                            <img src="images/zhisi_photo_1.png" alt="Zhi-Si Photo 1" class="portfolio-img">
+                            <img src="images/zhisi_photo_1.png" alt="紙祀產品照片 1" class="portfolio-img">
                         </div>
                         <div class="video-container shadow-xl aspect-[4/6] md:aspect-auto">
                             <video autoplay loop muted playsinline preload="auto">
-                                <source src="images/zhisi_video_main.mp4" type="video/mp4">
+                                <source src="images/zzhisi_video_main.mp4" type="video/mp4">
                             </video>
                         </div>
                         <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
-                            <img src="images/zhisi_photo_2.png" alt="Zhi-Si Photo 2" class="portfolio-img">
+                            <img src="images/zhisi_photo_2.png" alt="紙祀產品照片 2" class="portfolio-img">
                         </div>
                     </div>
                 </div>
@@ -265,17 +293,74 @@
         </div>
     </section>
 
-    <!-- 聯絡資訊 -->
-    <footer id="contact" class="py-24 px-6 bg-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-5xl md:text-6xl font-serif italic mb-10 text-clay">Keep in touch!</h2>
-            <a href="mailto:sally.chung20030923@gmail.com" class="text-lg md:text-xl hover:text-pink-400 transition underline underline-offset-8 decoration-pink-100">sally.chung20030923@gmail.com</a>
+    <!-- 頁尾區塊 -->
+    <footer id="contact" class="pt-32 pb-12 bg-[#fdfaf8] border-t border-pink-100 overflow-hidden">
+        
+        <!-- 大四求職版跑馬燈內容 -->
+        <div class="marquee-container py-6 border-y border-pink-100/50 mb-24 -rotate-1">
+            <div class="marquee-content">
+                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
+                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-end">
+                <div class="space-y-12">
+                    <div class="relative">
+                        <span class="font-hand text-3xl text-pink-400 absolute -top-8 left-0">Let's work together!</span>
+                        <h2 class="text-6xl md:text-8xl font-serif font-bold text-clay tracking-tighter">Keep in<br>touch!</h2>
+                    </div>
+                    
+                    <div class="group relative inline-block">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-pink-100 to-orange-50 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                        <a href="mailto:sally.chung20030923@gmail.com" class="relative block bg-white/40 backdrop-blur-md border border-white/60 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
+                            <span class="block text-[10px] tracking-[0.4em] uppercase text-clay mb-2 opacity-60">Send an email</span>
+                            <span class="text-xl md:text-2xl font-light hover:text-pink-400 transition decoration-pink-100 underline decoration-2 underline-offset-8">
+                                sally.chung20030923@gmail.com
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:items-end space-y-12">
+                    <div class="flex gap-12 md:gap-16 text-sm">
+                        <div class="space-y-4">
+                            <p class="text-[10px] tracking-widest font-bold text-clay uppercase opacity-40">Social</p>
+                            <ul class="space-y-2">
+                                <li><a href="https://www.instagram.com/__scpy/" class="hover:text-pink-400 transition">Instagram</a></li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <p class="text-[10px] tracking-widest font-bold text-clay uppercase opacity-40">Contact</p>
+                            <ul class="space-y-2">
+                                <li><a href="tel:+886908800923" class="hover:text-pink-400 transition">0908-800-923</a></li>
+                                <li><p class="opacity-80">Taipei, Taiwan</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="text-left md:text-right">
+                        <p class="text-[10px] tracking-[0.5em] font-light text-gray-400 uppercase italic mb-1">Pei-Yun Chung Portfolio.</p>
+                        <p class="opacity-20 text-[9px] tracking-widest uppercase">&copy; 2026. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
-        // 平滑捲動
+
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
@@ -286,16 +371,6 @@
                         targetElement.scrollIntoView({ behavior: 'smooth' });
                     }
                 }
-            });
-        });
-
-        // 強制嘗試播放所有影片（針對 Chrome 自動播放限制的補救措施）
-        document.addEventListener('DOMContentLoaded', function() {
-            const videos = document.querySelectorAll('video');
-            videos.forEach(video => {
-                video.play().catch(error => {
-                    console.log("Auto-play was prevented by browser");
-                });
             });
         });
     </script>
