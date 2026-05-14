@@ -29,9 +29,7 @@
         .font-hand { font-family: 'Zeyada', cursive; }
         
         /* 導覽列捲動效果 */
-        nav {
-            transition: all 0.4s ease-in-out;
-        }
+        nav { transition: all 0.4s ease-in-out; }
         nav.scrolled {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
@@ -82,21 +80,21 @@
             display: block;
         }
 
-        .work-header {
-            min-height: 50px; 
-            display: flex;
-            align-items: center; 
-            justify-content: space-between; 
+        /* 影片容器 RWD 比例 (16:9) */
+        .video-aspect-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; 
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
         }
-
-        .work-title {
-            font-size: 1.25rem;
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--deep-brown);
+        .video-aspect-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 0;
         }
 
         .zhisi-grid {
@@ -107,50 +105,6 @@
         }
         @media (max-width: 768px) {
             .zhisi-grid { grid-template-columns: 1fr; }
-        }
-        
-        .video-container {
-            background-color: #000;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* 播放按鈕圖示 */
-        .video-container::after {
-            content: '\25B6'; 
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255,255,255,0.3);
-            color: white;
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            opacity: 1;
-            transition: opacity 0.3s, transform 0.3s;
-            z-index: 10;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.4);
-        }
-        .video-container:hover::after {
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-        .video-container.is-playing::after {
-            opacity: 0;
         }
     </style>
 </head>
@@ -242,37 +196,40 @@
                 
                 <!-- 01 Web -->
                 <a href="https://breadnbutterbakery.webflow.io" target="_blank" class="group work-card block">
-                    <div class="work-header mb-3">
-                        <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">01</span>
-                            <h3 class="work-title">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50 ml-1"></i></h3>
-                        </div>
+                    <div class="mb-3 flex items-baseline gap-3">
+                        <span class="text-3xl font-serif text-pink-200">01</span>
+                        <h3 class="text-xl font-bold font-serif flex items-center gap-2">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] bg-[#fcf9f8] rounded-xl overflow-hidden">
-                            <img src="./images/web_bread.png" alt="麵包坊網站設計" class="portfolio-img group-hover:scale-105 transition duration-700">
+                        <div class="aspect-[16/10] overflow-hidden rounded-xl">
+                            <img src="./images/web_bread.png" alt="麵包坊網站" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計</p>
                 </a>
 
-                <!-- 02 App -->
+                <!-- 02 日記 App (更新：改為 YouTube 嵌入影片) -->
                 <div class="group work-card">
-                    <div class="work-header mb-3">
-                        <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200">02</span>
-                            <h3 class="work-title">日記 App</h3>
-                        </div>
+                    <div class="mb-3 flex items-baseline gap-3">
+                        <span class="text-3xl font-serif text-pink-200">02</span>
+                        <h3 class="text-xl font-bold font-serif">日記 App</h3>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2 bg-gray-50 rounded-xl">
-                            <div class="h-full aspect-square overflow-hidden rounded-xl bg-white shadow-sm">
-                                <img src="./images/app_diary_mockup.png" alt="日記 App 模型" class="portfolio-img">
+                        <div class="aspect-[16/10] flex gap-4 p-2 bg-gray-50 rounded-xl">
+                            <!-- 左側 Mockup 圖 -->
+                            <div class="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
+                                <img src="./images/app_diary_mockup.png" alt="日記 App" class="portfolio-img">
                             </div>
-                            <div class="h-full aspect-[9/16] video-container shadow-lg">
-                                <video loop muted playsinline preload="auto" poster="./images/app_diary_mockup.png" class="video-element">
-                                    <source src="./images/app_diary_video.mp4" type="video/mp4">
-                                </video>
+                            <!-- 右側嵌入影片 -->
+                            <div class="flex-1 overflow-hidden rounded-xl bg-black shadow-lg">
+                                <div class="relative w-full h-full">
+                                    <iframe 
+                                        src="https://youtu.be/g1dDQtdk2tw" 
+                                        class="absolute top-0 left-0 w-full h-full border-0"
+                                        allow="autoplay; encrypted-media" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -281,64 +238,55 @@
 
                 <!-- 03 Graphic -->
                 <div class="group work-card">
-                    <div class="work-header mb-3">
-                        <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200">03</span>
-                            <h3 class="work-title">偶像應援手牌</h3>
-                        </div>
+                    <div class="mb-3 flex items-baseline gap-3">
+                        <span class="text-3xl font-serif text-pink-200">03</span>
+                        <h3 class="text-xl font-bold font-serif">偶像應援手牌</h3>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden">
-                            <img src="./images/graphic_idol.png" alt="偶像應援手牌設計" class="portfolio-img group-hover:scale-105 transition duration-700">
+                        <div class="aspect-[16/10] overflow-hidden rounded-xl">
+                            <img src="./images/graphic_idol.png" alt="應援手牌" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
 
-                <!-- 04 Movie (恢復外部連結，但保留內部影片預覽) -->
+                <!-- 04 微電影作品 -->
                 <div class="group work-card">
-                    <div class="work-header mb-3">
-                        <a href="https://youtu.be/A5o_tMuQSug" target="_blank" class="flex items-baseline gap-3 hover:text-pink-400 transition">
-                            <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400">04</span>
-                            <h3 class="work-title">微電影作品<i data-lucide="external-link" class="w-4 h-4 opacity-50 ml-1"></i></h3>
+                    <div class="mb-3 flex items-baseline gap-3">
+                        <span class="text-3xl font-serif text-pink-200">04</span>
+                        <a href="https://youtu.be/A5o_tMuQSug" target="_blank" class="hover:text-pink-400 transition">
+                            <h3 class="text-xl font-bold font-serif flex items-center gap-2">微電影作品<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
                         </a>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <!-- 展示區塊仍可以直接點擊播放預覽影片 -->
-                        <div class="aspect-[16/10] video-container">
-                            <video loop muted playsinline preload="auto" poster="./images/video_movie_thumb.png" class="video-element">
-                                <source src="./images/video_movie.mp4" type="video/mp4">
-                            </video>
+                        <div class="video-aspect-container">
+                            <iframe src="https://youtu.be/A5o_tMuQSug" allowfullscreen></iframe>
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯</p>
                 </div>
             </div>
 
-            <!-- 05 紙祀 (網頁內播放) -->
+            <!-- 05 紙祀 -->
             <div class="mt-16 pt-16 border-t border-pink-100 group">
                 <div class="flex items-baseline gap-4 mb-8">
-                    <span class="text-4xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">05</span>
-                    <h3 class="work-title">Zhi-Si 紙祀</h3>
+                    <span class="text-4xl font-serif text-pink-200">05</span>
+                    <h3 class="text-2xl font-bold font-serif">Zhi-Si 紙祀</h3>
                 </div>
                 <div class="bg-white p-3 rounded-3xl shadow-sm">
-                    <div class="zhisi-grid min-h-[500px]">
-                        <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
-                            <img src="./images/zhisi_photo_1.png" alt="紙祀產品照片 1" class="portfolio-img">
+                    <div class="zhisi-grid min-h-[450px]">
+                        <div class="rounded-xl overflow-hidden">
+                            <img src="./images/zhisi_photo_1.png" class="portfolio-img">
                         </div>
-                        <div class="video-container shadow-xl aspect-[4/6] md:aspect-auto">
-                            <video loop muted playsinline preload="auto" poster="./images/zhisi_video_thumb.png" class="video-element">
-                                <source src="./images/zhisi_video_main.mp4" type="video/mp4">
-                            </video>
+                        <div class="video-aspect-container !pb-0 md:h-full">
+                            <iframe src="https://youtu.be/rjCcQzGU5Ps" class="h-full" allowfullscreen></iframe>
                         </div>
-                        <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
-                            <img src="./images/zhisi_photo_2.png" alt="紙祀產品照片 2" class="portfolio-img">
+                        <div class="rounded-xl overflow-hidden">
+                            <img src="./images/zhisi_photo_2.png" class="portfolio-img">
                         </div>
                     </div>
                 </div>
-                <div class="mt-6">
-                    <p class="text-[10px] tracking-widest uppercase text-clay font-bold">產品設計 / 品牌設計 / 實體立體結構</p>
-                </div>
+                <p class="mt-6 text-[10px] tracking-widest uppercase text-clay font-bold">產品設計 / 品牌設計 / 實體立體結構</p>
             </div>
         </div>
     </section>
@@ -347,8 +295,6 @@
     <footer id="contact" class="pt-32 pb-12 bg-[#fdfaf8] border-t border-pink-100 overflow-hidden">
         <div class="marquee-container py-6 border-y border-pink-100/50 mb-24 -rotate-1">
             <div class="marquee-content">
-                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
-                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
             </div>
@@ -361,30 +307,23 @@
                         <span class="font-hand text-3xl text-pink-400 absolute -top-8 left-0">Let's work together!</span>
                         <h2 class="text-6xl md:text-8xl font-serif font-bold text-clay tracking-tighter">Keep in<br>touch!</h2>
                     </div>
-                    <div class="group relative inline-block">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-pink-100 to-orange-50 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                        <a href="mailto:sally.chung20030923@gmail.com" class="relative block bg-white/40 backdrop-blur-md border border-white/60 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
-                            <span class="block text-[10px] tracking-[0.4em] uppercase text-clay mb-2 opacity-60">Send an email</span>
-                            <span class="text-xl md:text-2xl font-light hover:text-pink-400 transition decoration-pink-100 underline decoration-2 underline-offset-8">
-                                sally.chung20030923@gmail.com
-                            </span>
-                        </a>
-                    </div>
+                    <a href="mailto:sally.chung20030923@gmail.com" class="block bg-white/40 border border-white/60 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all">
+                        <span class="block text-[10px] tracking-[0.4em] uppercase text-clay mb-2 opacity-60">Send an email</span>
+                        <span class="text-xl md:text-2xl font-light hover:text-pink-400 transition decoration-pink-100 underline underline-offset-8">
+                            sally.chung20030923@gmail.com
+                        </span>
+                    </a>
                 </div>
 
                 <div class="flex flex-col md:items-end space-y-12">
-                    <div class="flex gap-12 md:gap-16 text-sm">
+                    <div class="flex gap-12 text-sm">
                         <div class="space-y-4">
-                            <p class="text-[10px] tracking-widest font-bold text-clay uppercase opacity-40">Social</p>
-                            <ul class="space-y-2">
-                                <li><a href="https://www.instagram.com/__scpy/" class="hover:text-pink-400 transition">Instagram</a></li>
-                            </ul>
+                            <p class="text-[10px] font-bold text-clay uppercase opacity-40">Social</p>
+                            <a href="https://www.instagram.com/__scpy/" class="block hover:text-pink-400 transition">Instagram</a>
                         </div>
                         <div class="space-y-4">
-                            <p class="text-[10px] tracking-widest font-bold text-clay uppercase opacity-40">Contact</p>
-                            <ul class="space-y-2">
-                                <li><a href="tel:+886908800923" class="hover:text-pink-400 transition">0908-800-923</a></li>
-                            </ul>
+                            <p class="text-[10px] font-bold text-clay uppercase opacity-40">Contact</p>
+                            <a href="tel:+886908800923" class="block hover:text-pink-400 transition">0908-800-923</a>
                         </div>
                     </div>
                     <div class="text-left md:text-right">
@@ -398,37 +337,10 @@
 
     <script>
         lucide.createIcons();
-
-        const nav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // 核心控制邏輯：點擊切換播放/暫停
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            if(!video) return;
-            
-            container.addEventListener('click', function(e) {
-                // 停止事件冒泡，確保不會觸發到父層連結（雖然這裡結構已經分離）
-                e.stopPropagation();
-                
-                if (video.paused) {
-                    video.play();
-                    container.classList.add('is-playing');
-                } else {
-                    video.pause();
-                    container.classList.remove('is-playing');
-                }
-            });
-
-            video.addEventListener('ended', () => {
-                container.classList.remove('is-playing');
-            });
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
         });
     </script>
 </body>
