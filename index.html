@@ -24,7 +24,15 @@
             overflow-x: hidden;
             background-image: radial-gradient(#d1bfa7 0.5px, transparent 0.5px);
             background-size: 30px 30px;
+            /* 隱藏系統預設游標 */
+            cursor: none;
         }
+        
+        /* 確保所有可點擊元素也不顯示預設游標 */
+        a, button, [onclick], .filter-btn {
+            cursor: none !important;
+        }
+
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-hand { font-family: 'Zeyada', cursive; }
         
@@ -157,14 +165,17 @@
 
         /* 滑鼠跟隨裝飾 */
         .cursor-dot {
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
             background: var(--clay);
             position: fixed;
             border-radius: 50%;
             pointer-events: none;
-            z-index: 100;
-            opacity: 0.5;
+            z-index: 9999;
+            opacity: 0.8;
+            /* 讓裝飾點中心對準游標 */
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
         }
 
         /* 跑馬燈效果 */
@@ -386,7 +397,7 @@
                     </div>
                 </div>
 
-                <!-- 05 紙祀 (無橫線且間距優化) -->
+                <!-- 05 紙祀 -->
                 <div class="work-item md:col-span-2 mt-4" data-category="product">
                     <div class="group">
                         <div class="flex items-baseline gap-4 mb-8">
@@ -468,13 +479,24 @@
     <script>
         lucide.createIcons();
 
-        // 滑鼠裝飾
+        // 滑鼠裝飾：完全取代系統游標
         const dot = document.createElement('div');
         dot.className = 'cursor-dot';
         document.body.appendChild(dot);
+        
         window.addEventListener('mousemove', (e) => {
             dot.style.left = e.clientX + 'px';
             dot.style.top = e.clientY + 'px';
+            
+            // 當滑鼠移動到連結上時，可以加上一些微動效
+            const target = e.target;
+            if (target.tagName === 'A' || target.closest('.filter-btn') || target.hasAttribute('onclick')) {
+                dot.style.transform = 'translate(-50%, -50%) scale(2)';
+                dot.style.background = '#f4d9d9'; // 變更為粉色提示
+            } else {
+                dot.style.transform = 'translate(-50%, -50%) scale(1)';
+                dot.style.background = 'var(--clay)';
+            }
         });
 
         // 導覽列效果
@@ -516,7 +538,7 @@
             if (!hasVisible) noWorks.classList.remove('hidden');
             else noWorks.classList.add('hidden');
 
-            // 執行跳轉與捲動（修復跳轉失效問題）
+            // 執行跳轉與捲動
             const contentSection = document.getElementById('content');
             if (contentSection) {
                 contentSection.scrollIntoView({ behavior: 'smooth' });
