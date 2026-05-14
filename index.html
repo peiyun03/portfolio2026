@@ -229,19 +229,21 @@
                 </a>
 
                 <!-- 02 App (影片修正) -->
-                <div class="group work-card">
-                    <div class="work-header mb-3">
-                        <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200">02</span>
-                            <h3 class="text-lg font-serif font-bold">日記 App</h3>
-                        </div>
+                <div class="group">
+                    <div class="flex items-baseline gap-3 mb-4">
+                        <span class="text-2xl font-serif text-pink-200">02</span>
+                        <h3 class="text-lg font-bold">日記 App</h3>
                     </div>
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2 bg-gray-50 rounded-xl">
-                            <!-- 影片容器增加 playsinline 確保自動播放順利 -->
-                            <div class="h-full aspect-[9/16] video-container shadow-lg">
-                                <video autoplay loop muted playsinline poster="images/app_diary_mockup.png" class="video-element">
-                                    <source src="./images/app_diary_video.mp4" type="video/mp4">
+                    <div class="rounded-2xl shadow-sm bg-white p-2">
+                        <div class="aspect-[16/10] flex gap-4 p-4 bg-[#f8f8f8] rounded-xl items-center justify-center">
+                            <!-- 圖片區：使用 object-contain 防止 Mockup 變形 -->
+                            <div class="h-full w-1/2 overflow-hidden">
+                                <img src="images/app_diary_mockup.png" alt="日記 App" class="mockup-img">
+                            </div>
+                            <!-- 影片區：確保有足夠的寬度與高度 -->
+                            <div class="h-full w-1/2 video-container shadow-md">
+                                <video autoplay loop muted playsinline class="video-player">
+                                    <source src="images/app_diary_video.mp4" type="video/mp4">
                                 </video>
                             </div>
                             <div class="h-full aspect-square overflow-hidden rounded-xl bg-white shadow-sm">
