@@ -40,7 +40,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* 頁尾動態跑馬燈 - 優雅的速度 */
+        /* 頁尾動態跑馬燈 */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -88,11 +88,16 @@
             align-items: center; 
             justify-content: space-between; 
         }
+
         /* 統一作品標題字型與字級 */
         .work-title {
-            font-size: 1.25rem; /* text-xl */
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
+            font-size: 1.25rem !important; 
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 700 !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--deep-brown);
         }
 
         .zhisi-grid {
@@ -113,13 +118,13 @@
             height: 100%;
             overflow: hidden;
             border-radius: 12px;
+            cursor: pointer;
         }
-        /* 增加影片載入失敗時的底色與提示 */
         .video-container.load-error {
             background-color: #e5e0dc;
         }
         .video-container.load-error::after {
-            content: 'VIDEO ERROR';
+            content: 'VIDEO LOAD ERROR';
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
@@ -129,6 +134,31 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            background: #000;
+        }
+
+        /* 播放按鈕圖示 */
+        .video-container::before {
+            content: '\25B6'; 
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            opacity: 1;
+            transition: opacity 0.3s;
+            z-index: 10;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+        }
+        .video-container.is-playing::before {
+            opacity: 0;
         }
     </style>
 </head>
@@ -223,7 +253,7 @@
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
                             <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">01</span>
-                            <h3 class="text-lg font-serif font-bold flex items-center gap-2">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
+                            <h3 class="work-title">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
@@ -234,21 +264,21 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計</p>
                 </a>
 
-                <!-- 02 App (影片修正) -->
-                <div class="group">
-                    <div class="flex items-baseline gap-3 mb-4">
-                        <span class="text-2xl font-serif text-pink-200">02</span>
-                        <h3 class="text-lg font-bold">日記 App</h3>
+                <!-- 02 App -->
+                <div class="group work-card">
+                    <div class="work-header mb-3">
+                        <div class="flex items-baseline gap-3">
+                            <span class="text-3xl font-serif text-pink-200">02</span>
+                            <h3 class="work-title">日記 App</h3>
+                        </div>
                     </div>
-                    <div class="rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] flex gap-4 p-4 bg-[#f8f8f8] rounded-xl items-center justify-center">
-                            <!-- 圖片區：使用 object-contain 防止 Mockup 變形 -->
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
+                        <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2 bg-gray-50 rounded-xl">
                             <div class="h-full aspect-square overflow-hidden rounded-xl bg-white shadow-sm">
                                 <img src="./images/app_diary_mockup.png" alt="日記 App 模型" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x400?text=Mockup+Not+Found'">
                             </div>
-                            <!-- 影片區：確保有足夠的寬度與高度 -->
-                            <div class="h-full w-1/2 video-container shadow-md">
-                                <video autoplay loop muted playsinline class="video-player">
+                            <div class="h-full aspect-[9/16] video-container shadow-lg">
+                                <video loop muted playsinline poster="./images/app_diary_mockup.png" class="video-element">
                                     <source src="./images/app_diary_video.mp4" type="video/mp4">
                                 </video>
                             </div>
@@ -262,7 +292,7 @@
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
                             <span class="text-3xl font-serif text-pink-200">03</span>
-                            <h3 class="text-lg font-serif font-bold">偶像應援手牌</h3>
+                            <h3 class="work-title">偶像應援手牌</h3>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
@@ -278,10 +308,9 @@
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
                             <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">04</span>
-                            <h3 class="work-title flex items-center gap-2">
+                            <h3 class="work-title">
                                 微電影作品
-                                <!-- 聯動至外部影片連結的按鈕 -->
-                                <a href="https://youtu.be/A5o_tMuQSug" target="_blank" class="hover:scale-110 transition-transform">
+                                <a href="https://www.youtube.com/watch?v=您的影片ID" target="_blank" class="hover:scale-110 transition-transform inline-flex">
                                     <i data-lucide="play-circle" class="w-6 h-6 text-red-400 opacity-80"></i>
                                 </a>
                             </h3>
@@ -290,7 +319,7 @@
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] video-container">
                             <video loop muted playsinline class="video-element">
-                                <source src="images/video_movie.mp4" type="video/mp4">
+                                <source src="./images/video_movie.mp4" type="video/mp4">
                             </video>
                         </div>
                     </div>
@@ -298,11 +327,11 @@
                 </div>
             </div>
 
-            <!-- 05 紙祀 (影片修正) -->
+            <!-- 05 紙祀 -->
             <div class="mt-16 pt-16 border-t border-pink-100 group">
                 <div class="flex items-baseline gap-4 mb-8">
                     <span class="text-4xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">05</span>
-                    <h3 class="text-2xl font-serif font-bold tracking-tight">Zhi-Si 紙祀</h3>
+                    <h3 class="work-title">Zhi-Si 紙祀</h3>
                 </div>
                 <div class="bg-white p-3 rounded-3xl shadow-sm">
                     <div class="zhisi-grid min-h-[500px]">
@@ -310,8 +339,8 @@
                             <img src="./images/zhisi_photo_1.png" alt="紙祀產品照片 1" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x600?text=ZhiSi+Photo+1'">
                         </div>
                         <div class="video-container shadow-xl aspect-[4/6] md:aspect-auto">
-                            <video autoplay loop muted playsinline class="video-element">
-                                <source src="./images/zhisi_video_main.mp4" type="video/mp4">
+                            <video loop muted playsinline class="video-element">
+                                <source src="./images/zzhisi_video_main.mp4" type="video/mp4">
                             </video>
                         </div>
                         <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
@@ -328,15 +357,10 @@
 
     <!-- 頁尾區塊 -->
     <footer id="contact" class="pt-32 pb-12 bg-[#fdfaf8] border-t border-pink-100 overflow-hidden">
-        
-        <!-- 大四求職版跑馬燈內容 -->
         <div class="marquee-container py-6 border-y border-pink-100/50 mb-24 -rotate-1">
             <div class="marquee-content">
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
-                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
-                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
-            </div>
             </div>
         </div>
 
@@ -371,6 +395,7 @@
                             <p class="text-[10px] tracking-widest font-bold text-clay uppercase opacity-40">Contact</p>
                             <ul class="space-y-2">
                                 <li><a href="tel:+886908800923" class="hover:text-pink-400 transition">0908-800-923</a></li>
+                                <li><p class="opacity-80">Taipei, Taiwan</p></li>
                             </ul>
                         </div>
                     </div>
@@ -400,7 +425,7 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
-                if (targetId.length > 1) {
+                if (targetId && targetId.startsWith('#') && targetId.length > 1) {
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         e.preventDefault();
@@ -410,15 +435,33 @@
             });
         });
 
-        // 影片載入狀態偵控 (偵測路徑或編碼問題)
-        document.querySelectorAll('video').forEach(vid => {
-            vid.addEventListener('error', function() {
-                console.error("影片載入失敗:", this.querySelector('source').src);
-                this.parentElement.classList.add('load-error');
+        // 點擊播放/暫停邏輯
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            
+            container.addEventListener('click', function(e) {
+                // 如果點擊的是 a 標籤或其子元素，不觸發播放邏輯
+                if (e.target.closest('a')) return;
+
+                if (video.paused) {
+                    // 嘗試播放並處理瀏覽器阻擋
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            container.classList.add('is-playing');
+                        }).catch(error => {
+                            console.log("Autoplay was prevented");
+                        });
+                    }
+                } else {
+                    video.pause();
+                    container.classList.remove('is-playing');
+                }
             });
-            // 確保靜音後強制播放 (解決自動播放政策)
-            vid.muted = true;
-            vid.play().catch(e => console.warn("影片自動播放受阻"));
+
+            video.addEventListener('error', function() {
+                container.classList.add('load-error');
+            });
         });
     </script>
 </body>
