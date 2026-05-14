@@ -80,7 +80,7 @@
             display: block;
         }
 
-        /* 影片容器 - 透過裁切隱藏 YouTube 標題與 UI */
+        /* 影片容器 - 修復顯示問題 */
         .video-clean-wrapper {
             position: relative;
             width: 100%;
@@ -90,17 +90,17 @@
             background: #000;
         }
 
+        /* 恢復穩定的 iframe 設定，移除會導致無法顯示的裁切負值 */
         .video-clean-wrapper iframe {
             position: absolute;
-            top: -15%; 
-            left: -5%; 
-            width: 110%; 
-            height: 130%; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: 0;
-            pointer-events: none; 
         }
 
-        /* 統一 16:10 比例容器，用於對齊 03 與 04 */
+        /* 統一比例容器，用於對齊 03 與 04 */
         .uniform-aspect-box {
             position: relative;
             width: 100%;
@@ -234,8 +234,9 @@
                             </div>
                             <div class="flex-1 overflow-hidden rounded-xl shadow-lg">
                                 <div class="video-clean-wrapper">
+                                    <!-- 已將網址轉換為 embed 格式 -->
                                     <iframe 
-                                        src="https://youtu.be/g1dDQtdk2tw" 
+                                        src="https://www.youtube.com/embed/g1dDQtdk2tw?autoplay=1&mute=1&loop=1&playlist=g1dDQtdk2tw&controls=0&modestbranding=1&rel=0" 
                                         allow="autoplay; encrypted-media" 
                                         allowfullscreen>
                                     </iframe>
@@ -246,14 +247,14 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">UI/UX 設計</p>
                 </div>
 
-                <!-- 03 Graphic (對齊優化) -->
+                <!-- 03 Graphic -->
                 <div class="group work-card">
                     <div class="mb-3 flex items-baseline gap-3">
                         <span class="text-3xl font-serif text-pink-200">03</span>
                         <h3 class="text-xl font-bold font-serif">偶像應援手牌</h3>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <!-- 使用統一比例容器 -->
+                        <!-- 對齊容器：16/10 比例 -->
                         <div class="uniform-aspect-box">
                             <img src="./images/graphic_idol.png" alt="應援手牌" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
@@ -261,7 +262,7 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
 
-                <!-- 04 微電影作品 (對齊優化) -->
+                <!-- 04 微電影作品 -->
                 <div class="group work-card">
                     <div class="mb-3 flex items-baseline gap-3">
                         <span class="text-3xl font-serif text-pink-200">04</span>
@@ -270,12 +271,12 @@
                         </a>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <!-- 使用統一比例容器 + 影片裁切 -->
+                        <!-- 對齊容器：16/10 比例 -->
                         <div class="uniform-aspect-box bg-black">
                             <div class="video-clean-wrapper">
+                                <!-- 已將網址轉換為 embed 格式 -->
                                 <iframe 
-                                    src="https://youtu.be/A5o_tMuQSug" 
-                                    class="scale-110"
+                                    src="https://www.youtube.com/embed/A5o_tMuQSug?autoplay=1&mute=1&loop=1&playlist=A5o_tMuQSug&controls=0&modestbranding=1" 
                                     allowfullscreen>
                                 </iframe>
                             </div>
@@ -298,7 +299,8 @@
                         </div>
                         <div class="rounded-xl overflow-hidden shadow-inner">
                             <div class="video-clean-wrapper">
-                                <iframe src="https://youtu.be/rjCcQzGU5Ps" class="h-full" allowfullscreen></iframe>
+                                <!-- 已將網址轉換為 embed 格式 -->
+                                <iframe src="https://www.youtube.com/embed/rjCcQzGU5Ps?autoplay=1&mute=1&loop=1&playlist=rjCcQzGU5Ps&controls=0&modestbranding=1" class="h-full" allowfullscreen></iframe>
                             </div>
                         </div>
                         <div class="rounded-xl overflow-hidden">
