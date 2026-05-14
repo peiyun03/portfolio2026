@@ -195,10 +195,10 @@
         </div>
     </nav>
 
-    <!-- 首頁區塊：手機版文字在上(flex-col)，電腦版選單在左/文字在右(md:flex-row-reverse) -->
+    <!-- 首頁區塊 -->
     <section id="home" class="min-h-screen flex flex-col md:flex-row-reverse items-center md:items-start justify-center px-6 md:px-24 pt-32 md:pt-48 pb-20 gap-12 md:gap-20">
         
-        <!-- 標題文字區 (手機版預設在上方，電腦版在右側) -->
+        <!-- 標題文字區 -->
         <div class="w-full md:w-1/2 md:pt-8 text-left">
             <div class="inline-block px-3 py-1 bg-white rounded-full text-[9px] tracking-widest uppercase mb-6 shadow-sm border border-pink-100/50">SELECTED WORKS 2026</div>
             <h1 class="text-7xl md:text-9xl font-serif font-bold leading-[0.8] mb-8 text-[#4a3a35]">Portfolio</h1>
@@ -218,7 +218,7 @@
             </div>
         </div>
 
-        <!-- 作品篩選控制中心 (手機版在下方，電腦版在左側) -->
+        <!-- 作品篩選控制中心 -->
         <div class="w-full md:w-1/2 max-w-sm relative">
             <div class="mb-10">
                 <p class="text-[10px] tracking-[0.4em] text-clay font-bold uppercase opacity-50 mb-2">Projects Filter</p>
@@ -319,7 +319,7 @@
                     </a>
                 </div>
 
-                <!-- 02 日記 App -->
+                <!-- 02 日記 App (此區塊已優化手機版排版為橫向) -->
                 <div class="work-item" data-category="app">
                     <div class="group">
                         <div class="mb-3 flex items-baseline gap-3">
@@ -327,11 +327,12 @@
                             <h3 class="text-xl font-bold font-serif">日記 App</h3>
                         </div>
                         <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                            <div class="aspect-[16/10] flex flex-col sm:flex-row gap-4 p-2 bg-gray-50 rounded-xl">
-                                <div class="flex-1 overflow-hidden rounded-xl bg-white shadow-sm aspect-square sm:aspect-auto">
+                            <!-- 修改重點：移除 flex-col，強制手機版也維持 flex-row，並使用適當寬度比例 -->
+                            <div class="aspect-[16/10] flex flex-row gap-2 md:gap-4 p-1 md:p-2 bg-gray-50 rounded-xl">
+                                <div class="w-[40%] md:flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
                                     <img src="./images/app_diary_mockup.png" alt="日記 App" class="portfolio-img">
                                 </div>
-                                <div class="flex-1 overflow-hidden rounded-xl shadow-lg aspect-square sm:aspect-auto">
+                                <div class="w-[60%] md:flex-1 overflow-hidden rounded-xl shadow-lg">
                                     <div class="video-clean-wrapper">
                                         <iframe 
                                             src="https://www.youtube.com/embed/g1dDQtdk2tw?autoplay=1&mute=1&loop=1&playlist=g1dDQtdk2tw&controls=0&modestbranding=1&rel=0" 
