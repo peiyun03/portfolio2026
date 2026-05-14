@@ -108,6 +108,17 @@
             overflow: hidden;
             border-radius: 12px;
         }
+        /* 增加影片載入失敗時的底色與提示 */
+        .video-container.load-error {
+            background-color: #e5e0dc;
+        }
+        .video-container.load-error::after {
+            content: 'VIDEO ERROR';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px; color: #b5a49d;
+        }
         video {
             width: 100%;
             height: 100%;
@@ -165,7 +176,7 @@
             <div class="w-full md:w-2/5">
                 <div class="bg-white p-3 rounded-2xl shadow-xl transform -rotate-2">
                     <div class="aspect-[4/5] bg-[#fdf2f2] rounded-xl overflow-hidden relative">
-                        <img src="./images/profile.png" alt="鐘霈芸個人照" class="portfolio-img">
+                        <img src="./images/profile.png" alt="鐘霈芸個人照" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x500?text=Profile+Error'">
                     </div>
                 </div>
             </div>
@@ -200,6 +211,8 @@
                 <span class="font-hand text-2xl text-pink-400">selected projects.</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 items-start">
+                
+                <!-- 01 Web -->
                 <a href="https://breadnbutterbakery.webflow.io" target="_blank" class="group work-card block">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -209,11 +222,13 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-[#fcf9f8] rounded-xl overflow-hidden">
-                            <img src="./images/web_bread.png" alt="麵包坊網站設計" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            <img src="./images/web_bread.png" alt="麵包坊網站設計" class="portfolio-img group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x500?text=Web+Image+Not+Found'">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計</p>
                 </a>
+
+                <!-- 02 App (影片修正) -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -224,10 +239,11 @@
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2 bg-gray-50 rounded-xl">
                             <div class="h-full aspect-square overflow-hidden rounded-xl bg-white shadow-sm">
-                                <img src="./images/app_diary_mockup.png" alt="日記 App 模型" class="portfolio-img">
+                                <img src="./images/app_diary_mockup.png" alt="日記 App 模型" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x400?text=Mockup+Not+Found'">
                             </div>
+                            <!-- 影片容器增加 playsinline 確保自動播放順利 -->
                             <div class="h-full aspect-[9/16] video-container shadow-lg">
-                                <video autoplay loop muted playsinline preload="auto">
+                                <video autoplay loop muted playsinline poster="images/app_diary_mockup.png" class="video-element">
                                     <source src="./images/app_diary_video.mp4" type="video/mp4">
                                 </video>
                             </div>
@@ -235,6 +251,8 @@
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">UI/UX 設計</p>
                 </div>
+
+                <!-- 03 Graphic -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -244,11 +262,13 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden">
-                            <img src="./images/graphic_idol.png" alt="偶像應援手牌設計" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            <img src="./images/graphic_idol.png" alt="偶像應援手牌設計" class="portfolio-img group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x500?text=Graphic+Image+Not+Found'">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
+
+                <!-- 04 Movie (影片修正) -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -258,7 +278,7 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] video-container">
-                            <video autoplay loop muted playsinline preload="auto">
+                            <video autoplay loop muted playsinline class="video-element">
                                 <source src="./images/video_movie.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -266,6 +286,8 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯</p>
                 </div>
             </div>
+
+            <!-- 05 紙祀 (影片修正) -->
             <div class="mt-16 pt-16 border-t border-pink-100 group">
                 <div class="flex items-baseline gap-4 mb-8">
                     <span class="text-4xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">05</span>
@@ -274,15 +296,15 @@
                 <div class="bg-white p-3 rounded-3xl shadow-sm">
                     <div class="zhisi-grid min-h-[500px]">
                         <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
-                            <img src="./images/zhisi_photo_1.png" alt="紙祀產品照片 1" class="portfolio-img">
+                            <img src="./images/zhisi_photo_1.png" alt="紙祀產品照片 1" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x600?text=ZhiSi+Photo+1'">
                         </div>
                         <div class="video-container shadow-xl aspect-[4/6] md:aspect-auto">
-                            <video autoplay loop muted playsinline preload="auto">
+                            <video autoplay loop muted playsinline class="video-element">
                                 <source src="./images/zhisi_video_main.mp4" type="video/mp4">
                             </video>
                         </div>
                         <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
-                            <img src="./images/zhisi_photo_2.png" alt="紙祀產品照片 2" class="portfolio-img">
+                            <img src="./images/zhisi_photo_2.png" alt="紙祀產品照片 2" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x600?text=ZhiSi+Photo+2'">
                         </div>
                     </div>
                 </div>
@@ -299,8 +321,6 @@
         <!-- 大四求職版跑馬燈內容 -->
         <div class="marquee-container py-6 border-y border-pink-100/50 mb-24 -rotate-1">
             <div class="marquee-content">
-                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
-                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
             </div>
@@ -337,6 +357,7 @@
                             <p class="text-[10px] tracking-widest font-bold text-clay uppercase opacity-40">Contact</p>
                             <ul class="space-y-2">
                                 <li><a href="tel:+886908800923" class="hover:text-pink-400 transition">0908-800-923</a></li>
+                                <li><p class="opacity-80">Taipei, Taiwan</p></li>
                             </ul>
                         </div>
                     </div>
@@ -362,6 +383,7 @@
             }
         });
 
+        // 平滑捲動
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
@@ -373,6 +395,17 @@
                     }
                 }
             });
+        });
+
+        // 影片載入狀態偵控 (偵測路徑或編碼問題)
+        document.querySelectorAll('video').forEach(vid => {
+            vid.addEventListener('error', function() {
+                console.error("影片載入失敗:", this.querySelector('source').src);
+                this.parentElement.classList.add('load-error');
+            });
+            // 確保靜音後強制播放 (解決自動播放政策)
+            vid.muted = true;
+            vid.play().catch(e => console.warn("影片自動播放受阻"));
         });
     </script>
 </body>
