@@ -133,21 +133,22 @@
             gap: 12px;
             height: 100%;
         }
+        /* 手機版優化：針對紙祀增加高度 */
         @media (max-width: 768px) {
             .zhisi-grid { 
                 display: flex;
                 flex-direction: column;
                 height: auto;
-                min-height: auto;
+                min-height: 800px; /* 增加最小高度以應對直向照片 */
                 gap: 16px;
             }
             .zhisi-grid .video-container {
                 aspect-ratio: 16 / 9;
                 width: 100%;
-                min-height: 200px;
+                flex-shrink: 0;
             }
             .zhisi-grid .photo-container {
-                aspect-ratio: 16 / 10;
+                flex: 1; /* 讓照片容器自動延伸 */
                 width: 100%;
             }
         }
@@ -166,7 +167,7 @@
             opacity: 0.5;
         }
 
-        /* 跑馬燈效果維持原本設計 */
+        /* 跑馬燈效果 */
         .marquee-container {
             overflow: hidden;
             background-color: #fdfaf8;
@@ -319,7 +320,7 @@
                     </a>
                 </div>
 
-                <!-- 02 日記 App (此區塊已優化手機版排版為橫向) -->
+                <!-- 02 日記 App (維持上次優化後的手機版橫向排版) -->
                 <div class="work-item" data-category="app">
                     <div class="group">
                         <div class="mb-3 flex items-baseline gap-3">
@@ -327,7 +328,6 @@
                             <h3 class="text-xl font-bold font-serif">日記 App</h3>
                         </div>
                         <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                            <!-- 修改重點：移除 flex-col，強制手機版也維持 flex-row，並使用適當寬度比例 -->
                             <div class="aspect-[16/10] flex flex-row gap-2 md:gap-4 p-1 md:p-2 bg-gray-50 rounded-xl">
                                 <div class="w-[40%] md:flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
                                     <img src="./images/app_diary_mockup.png" alt="日記 App" class="portfolio-img">
@@ -386,7 +386,7 @@
                     </div>
                 </div>
 
-                <!-- 05 紙祀 (獨立分類 Product) -->
+                <!-- 05 紙祀 (本次調整：手機版增加高度範圍以容納直向照片) -->
                 <div class="work-item md:col-span-2 mt-8" data-category="product">
                     <div class="border-t border-pink-100 pt-16 group">
                         <div class="flex items-baseline gap-4 mb-8">
