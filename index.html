@@ -134,7 +134,22 @@
             height: 100%;
         }
         @media (max-width: 768px) {
-            .zhisi-grid { grid-template-columns: 1fr; }
+            .zhisi-grid { 
+                display: flex;
+                flex-direction: column;
+                height: auto;
+                min-height: auto;
+                gap: 16px;
+            }
+            .zhisi-grid .video-container {
+                aspect-ratio: 16 / 9;
+                width: 100%;
+                min-height: 200px;
+            }
+            .zhisi-grid .photo-container {
+                aspect-ratio: 16 / 10;
+                width: 100%;
+            }
         }
 
         html { scroll-behavior: smooth; }
@@ -175,15 +190,35 @@
         <div class="space-x-8 text-[10px] tracking-[0.3em] uppercase hidden md:flex font-bold">
             <a href="#home" class="hover:text-pink-400 transition">Home</a>
             <a href="#about" class="hover:text-pink-400 transition">About</a>
-            <!-- 導覽列下拉或點擊連動 Works -->
             <a href="#content" onclick="filterWorks('all')" class="hover:text-pink-400 transition">Works</a>
             <a href="#contact" class="hover:text-pink-400 transition">Contact</a>
         </div>
     </nav>
 
-    <!-- 首頁區塊 -->
-    <section id="home" class="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-24 py-20 gap-12 md:gap-20">
-        <!-- 左側：作品篩選控制中心 -->
+    <!-- 首頁區塊：手機版文字在上(flex-col)，電腦版選單在左/文字在右(md:flex-row-reverse) -->
+    <section id="home" class="min-h-screen flex flex-col md:flex-row-reverse items-center md:items-start justify-center px-6 md:px-24 pt-32 md:pt-48 pb-20 gap-12 md:gap-20">
+        
+        <!-- 標題文字區 (手機版預設在上方，電腦版在右側) -->
+        <div class="w-full md:w-1/2 md:pt-8 text-left">
+            <div class="inline-block px-3 py-1 bg-white rounded-full text-[9px] tracking-widest uppercase mb-6 shadow-sm border border-pink-100/50">Fresh Graduate 2026</div>
+            <h1 class="text-7xl md:text-9xl font-serif font-bold leading-[0.8] mb-8 text-[#4a3a35]">Portfolio</h1>
+            <div class="space-y-6">
+                <div class="flex items-baseline gap-4">
+                    <h2 class="text-3xl md:text-4xl font-medium tracking-[0.3em] text-[#4a3a35]">鐘霈芸</h2>
+                    <span class="text-base md:text-lg font-serif italic text-gray-400 tracking-wide">Pei-Yun Chung</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="h-[1px] w-10 bg-pink-300"></div>
+                    <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                        <p class="text-xs md:text-sm tracking-[0.5em] font-medium text-clay uppercase">行 銷 設 計</p>
+                        <span class="hidden md:block text-pink-200 font-thin">|</span>
+                        <p class="text-[10px] tracking-[0.1em] font-light text-gray-400 uppercase italic">Marketing & Graphic Designer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 作品篩選控制中心 (手機版在下方，電腦版在左側) -->
         <div class="w-full md:w-1/2 max-w-sm relative">
             <div class="mb-10">
                 <p class="text-[10px] tracking-[0.4em] text-clay font-bold uppercase opacity-50 mb-2">Projects Filter</p>
@@ -216,28 +251,8 @@
                 </div>
             </div>
             
-            <div class="mt-10">
-                <span class="font-hand text-xl text-pink-400 opacity-80">Select to View →</span>
-            </div>
-        </div>
-
-        <!-- 右側：標題文字區 -->
-        <div class="w-full md:w-1/2">
-            <div class="inline-block px-3 py-1 bg-white rounded-full text-[9px] tracking-widest uppercase mb-6 shadow-sm border border-pink-100/50">SELECTED WORKS 2026</div>
-            <h1 class="text-7xl md:text-9xl font-serif font-bold leading-[0.8] mb-8 text-[#4a3a35]">Portfolio</h1>
-            <div class="space-y-6">
-                <div class="flex items-baseline gap-4">
-                    <h2 class="text-3xl md:text-4xl font-medium tracking-[0.3em] text-[#4a3a35]">鐘霈芸</h2>
-                    <span class="text-base md:text-lg font-serif italic text-gray-400 tracking-wide">Pei-Yun Chung</span>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="h-[1px] w-10 bg-pink-300"></div>
-                    <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
-                        <p class="text-xs md:text-sm tracking-[0.5em] font-medium text-clay uppercase">行 銷 設 計</p>
-                        <span class="hidden md:block text-pink-200 font-thin">|</span>
-                        <p class="text-[10px] tracking-[0.1em] font-light text-gray-400 uppercase italic">Marketing & Graphic Designer</p>
-                    </div>
-                </div>
+            <div class="mt-10 mb-10 md:mb-0">
+                <span class="font-hand text-xl text-pink-400 opacity-90">Select to View →</span>
             </div>
         </div>
     </section>
@@ -309,11 +324,11 @@
                             <h3 class="text-xl font-bold font-serif">日記 App</h3>
                         </div>
                         <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                            <div class="aspect-[16/10] flex gap-4 p-2 bg-gray-50 rounded-xl">
-                                <div class="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
+                            <div class="aspect-[16/10] flex flex-col sm:flex-row gap-4 p-2 bg-gray-50 rounded-xl">
+                                <div class="flex-1 overflow-hidden rounded-xl bg-white shadow-sm aspect-square sm:aspect-auto">
                                     <img src="./images/app_diary_mockup.png" alt="日記 App" class="portfolio-img">
                                 </div>
-                                <div class="flex-1 overflow-hidden rounded-xl shadow-lg">
+                                <div class="flex-1 overflow-hidden rounded-xl shadow-lg aspect-square sm:aspect-auto">
                                     <div class="video-clean-wrapper">
                                         <iframe 
                                             src="https://www.youtube.com/embed/g1dDQtdk2tw?autoplay=1&mute=1&loop=1&playlist=g1dDQtdk2tw&controls=0&modestbranding=1&rel=0" 
@@ -376,15 +391,15 @@
                         </div>
                         <div class="bg-white p-3 rounded-3xl shadow-sm">
                             <div class="zhisi-grid min-h-[450px]">
-                                <div class="rounded-xl overflow-hidden">
+                                <div class="photo-container rounded-xl overflow-hidden">
                                     <img src="./images/zhisi_photo_1.png" class="portfolio-img">
                                 </div>
-                                <div class="rounded-xl overflow-hidden shadow-inner">
+                                <div class="video-container rounded-xl overflow-hidden shadow-inner">
                                     <div class="video-clean-wrapper">
                                         <iframe src="https://www.youtube.com/embed/rjCcQzGU5Ps?autoplay=1&mute=1&loop=1&playlist=rjCcQzGU5Ps&controls=0&modestbranding=1" class="h-full" allowfullscreen></iframe>
                                     </div>
                                 </div>
-                                <div class="rounded-xl overflow-hidden">
+                                <div class="photo-container rounded-xl overflow-hidden">
                                     <img src="./images/zhisi_photo_2.png" class="portfolio-img">
                                 </div>
                             </div>
@@ -394,7 +409,6 @@
                 </div>
             </div>
             
-            <!-- 無作品提示 -->
             <div id="no-works" class="hidden py-20 text-center">
                 <p class="text-gray-300 italic">No items in this category yet.</p>
             </div>
@@ -403,7 +417,6 @@
 
     <!-- 頁尾區塊 -->
     <footer id="contact" class="pt-32 pb-12 bg-[#fdfaf8] border-t border-pink-100 overflow-hidden">
-        <!-- 跑馬燈維持原效果 -->
         <div class="marquee-container py-6 border-y border-pink-100/50 mb-24 -rotate-1">
             <div class="marquee-content">
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
@@ -467,7 +480,7 @@
             else nav.classList.remove('scrolled');
         });
 
-        // 核心功能：作品篩選
+        // 作品篩選
         function filterWorks(category) {
             const items = document.querySelectorAll('.work-item');
             const buttons = document.querySelectorAll('.filter-btn');
@@ -475,16 +488,13 @@
             const noWorks = document.getElementById('no-works');
             let hasVisible = false;
 
-            // 切換按鈕狀態
             buttons.forEach(btn => {
                 if (btn.dataset.filter === category) btn.classList.add('active');
                 else btn.classList.remove('active');
             });
 
-            // 切換標題文字
             tag.innerText = category === 'all' ? 'all collections.' : category + ' collection.';
 
-            // 執行篩選動畫
             items.forEach(item => {
                 const itemCat = item.dataset.category;
                 if (category === 'all' || itemCat === category) {
@@ -495,13 +505,8 @@
                 }
             });
 
-            // 顯示無作品提示
             if (!hasVisible) noWorks.classList.remove('hidden');
             else noWorks.classList.add('hidden');
-
-            // 只有在不是首頁載入時才滾動，避免干擾
-            const contentSection = document.getElementById('content');
-            contentSection.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
