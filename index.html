@@ -126,26 +126,30 @@
         }
 
         /* 播放按鈕圖示 */
-        .video-container::before {
+        .video-container::after {
             content: '\25B6'; 
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.3);
             color: white;
-            width: 40px; height: 40px;
+            width: 50px; height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 18px;
             opacity: 1;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s, transform 0.3s;
             z-index: 10;
             pointer-events: none;
             backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.4);
         }
-        .video-container.is-playing::before {
+        .video-container:hover::after {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-container.is-playing::after {
             opacity: 0;
         }
     </style>
@@ -291,26 +295,27 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
 
-                <!-- 04 Movie (已修正連結與影片屬性) -->
-                <a href="https://youtu.be/A5o_tMuQSug" target="_blank" class="group work-card block">
+                <!-- 04 Movie (恢復外部連結，但保留內部影片預覽) -->
+                <div class="group work-card">
                     <div class="work-header mb-3">
-                        <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">04</span>
+                        <a href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank" class="flex items-baseline gap-3 hover:text-pink-400 transition">
+                            <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400">04</span>
                             <h3 class="work-title">微電影作品<i data-lucide="external-link" class="w-4 h-4 opacity-50 ml-1"></i></h3>
-                        </div>
+                        </a>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
+                        <!-- 展示區塊仍可以直接點擊播放預覽影片 -->
                         <div class="aspect-[16/10] video-container">
-                            <video loop muted playsinline preload="auto" class="video-element">
+                            <video loop muted playsinline preload="auto" poster="./images/video_movie_thumb.png" class="video-element">
                                 <source src="./images/video_movie.mp4" type="video/mp4">
                             </video>
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯</p>
-                </a>
+                </div>
             </div>
 
-            <!-- 05 紙祀 (已修正影片屬性) -->
+            <!-- 05 紙祀 (網頁內播放) -->
             <div class="mt-16 pt-16 border-t border-pink-100 group">
                 <div class="flex items-baseline gap-4 mb-8">
                     <span class="text-4xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">05</span>
@@ -322,7 +327,7 @@
                             <img src="./images/zhisi_photo_1.png" alt="紙祀產品照片 1" class="portfolio-img">
                         </div>
                         <div class="video-container shadow-xl aspect-[4/6] md:aspect-auto">
-                            <video loop muted playsinline preload="auto" class="video-element">
+                            <video loop muted playsinline preload="auto" poster="./images/zhisi_video_thumb.png" class="video-element">
                                 <source src="./images/zhisi_video_main.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -402,15 +407,15 @@
             }
         });
 
-        // 點擊播放/暫停邏輯
+        // 核心控制邏輯：點擊切換播放/暫停
         document.querySelectorAll('.video-container').forEach(container => {
             const video = container.querySelector('video');
             if(!video) return;
             
             container.addEventListener('click', function(e) {
-                // 如果是點擊 <a> 標籤（例如外部連結），則不觸發播放邏輯
-                if (container.closest('a')) return;
-
+                // 停止事件冒泡，確保不會觸發到父層連結（雖然這裡結構已經分離）
+                e.stopPropagation();
+                
                 if (video.paused) {
                     video.play();
                     container.classList.add('is-playing');
@@ -418,6 +423,10 @@
                     video.pause();
                     container.classList.remove('is-playing');
                 }
+            });
+
+            video.addEventListener('ended', () => {
+                container.classList.remove('is-playing');
             });
         });
     </script>
