@@ -386,9 +386,9 @@
                     </div>
                 </div>
 
-                <!-- 05 紙祀 -->
-                <div class="work-item md:col-span-2 mt-8" data-category="product">
-                    <div class="border-t border-pink-100 pt-16 group">
+                <!-- 05 紙祀 (移除橫線並縮短間距) -->
+                <div class="work-item md:col-span-2 mt-4" data-category="product">
+                    <div class="group">
                         <div class="flex items-baseline gap-4 mb-8">
                             <span class="text-4xl font-serif text-pink-200">05</span>
                             <h3 class="text-2xl font-bold font-serif">Zhi-Si 紙祀</h3>
@@ -516,7 +516,7 @@
             if (!hasVisible) noWorks.classList.remove('hidden');
             else noWorks.classList.add('hidden');
 
-            // 【新增功能】：點擊後自動跳轉至作品集區塊
+            // 點擊後自動跳轉至作品集區塊
             window.location.hash = '#content';
         }
     </script>
