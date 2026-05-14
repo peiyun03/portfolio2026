@@ -139,7 +139,7 @@
                 display: flex;
                 flex-direction: column;
                 height: auto;
-                min-height: 800px; /* 增加最小高度以應對直向照片 */
+                min-height: 800px; 
                 gap: 16px;
             }
             .zhisi-grid .video-container {
@@ -148,7 +148,7 @@
                 flex-shrink: 0;
             }
             .zhisi-grid .photo-container {
-                flex: 1; /* 讓照片容器自動延伸 */
+                flex: 1; 
                 width: 100%;
             }
         }
@@ -386,7 +386,7 @@
                     </div>
                 </div>
 
-                <!-- 05 紙祀 (移除橫線並縮短間距) -->
+                <!-- 05 紙祀 (無橫線且間距優化) -->
                 <div class="work-item md:col-span-2 mt-4" data-category="product">
                     <div class="group">
                         <div class="flex items-baseline gap-4 mb-8">
@@ -516,8 +516,11 @@
             if (!hasVisible) noWorks.classList.remove('hidden');
             else noWorks.classList.add('hidden');
 
-            // 點擊後自動跳轉至作品集區塊
-            window.location.hash = '#content';
+            // 執行跳轉與捲動（修復跳轉失效問題）
+            const contentSection = document.getElementById('content');
+            if (contentSection) {
+                contentSection.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     </script>
 </body>
