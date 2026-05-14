@@ -291,12 +291,12 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
 
-                <!-- 04 Movie -->
-                <div class="group work-card">
+                <!-- 04 Movie (已修正連結與影片屬性) -->
+                <a href="https://youtu.be/A5o_tMuQSug" target="_blank" class="group work-card block">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
                             <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">04</span>
-                            <h3 class="work-title">微電影作品</h3>
+                            <h3 class="work-title">微電影作品<i data-lucide="external-link" class="w-4 h-4 opacity-50 ml-1"></i></h3>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
@@ -307,10 +307,10 @@
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯</p>
-                </div>
+                </a>
             </div>
 
-            <!-- 05 紙祀 -->
+            <!-- 05 紙祀 (已修正影片屬性) -->
             <div class="mt-16 pt-16 border-t border-pink-100 group">
                 <div class="flex items-baseline gap-4 mb-8">
                     <span class="text-4xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">05</span>
@@ -377,6 +377,7 @@
                             <p class="text-[10px] tracking-widest font-bold text-clay uppercase opacity-40">Contact</p>
                             <ul class="space-y-2">
                                 <li><a href="tel:+886908800923" class="hover:text-pink-400 transition">0908-800-923</a></li>
+                                <li><p class="opacity-80">Taipei, Taiwan</p></li>
                             </ul>
                         </div>
                     </div>
@@ -404,8 +405,12 @@
         // 點擊播放/暫停邏輯
         document.querySelectorAll('.video-container').forEach(container => {
             const video = container.querySelector('video');
+            if(!video) return;
             
-            container.addEventListener('click', function() {
+            container.addEventListener('click', function(e) {
+                // 如果是點擊 <a> 標籤（例如外部連結），則不觸發播放邏輯
+                if (container.closest('a')) return;
+
                 if (video.paused) {
                     video.play();
                     container.classList.add('is-playing');
