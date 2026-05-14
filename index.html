@@ -46,24 +46,6 @@
             box-shadow: 0 10px 20px rgba(242, 209, 209, 0.4);
         }
 
-        .section-title {
-            letter-spacing: 0.1em;
-            position: relative;
-            display: inline-block;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: var(--accent-pink);
-            z-index: -1;
-            opacity: 0.6;
-            border-radius: 10px;
-        }
-
         .portfolio-img {
             width: 100%;
             height: 100%;
@@ -78,27 +60,6 @@
             justify-content: space-between; 
         }
 
-        .cta-button-mini {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background-color: #fff;
-            padding: 3px 8px;
-            border-radius: 30px;
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--clay);
-            border: 1px solid var(--accent-pink);
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .work-card:hover .cta-button-mini {
-            background-color: var(--accent-pink);
-            color: #4a3a35;
-        }
-
         .zhisi-grid {
             display: grid;
             grid-template-columns: 1fr 1.5fr 1fr;
@@ -109,12 +70,17 @@
             .zhisi-grid { grid-template-columns: 1fr; }
             .work-header { flex-direction: row; align-items: center; }
         }
+        /* 確保影片背景為透明或底色，防止黑框 */
+        video {
+            background: transparent;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- 頂部導覽列 -->
-    <nav class="fixed top-0 left-0 w-full z-50 p-6 md:p-10 flex justify-between items-center">
+    <nav class="fixed top-0 left-0 w-full z-50 p-6 md:p-10 flex justify-between items-center bg-transparent">
         <div class="text-2xl font-serif font-bold text-clay tracking-tighter">PeiYun's Portfolio</div>
         <div class="space-x-8 text-xs tracking-[0.3em] uppercase hidden md:flex font-bold">
             <a href="#home" class="hover:text-pink-400 transition">Home</a>
@@ -149,20 +115,16 @@
             <div class="w-full md:w-2/5">
                 <div class="bg-white p-3 rounded-2xl shadow-xl transform -rotate-2">
                     <div class="aspect-[4/5] bg-[#fdf2f2] rounded-xl overflow-hidden">
-                        <img src="images/profile.png" onerror="this.src='https://placehold.co/400x500/fdf2f2/5d4a44?text=Profile+Image'" class="portfolio-img">
+                        <!-- 確認檔名為 me.jpg -->
+                        <img src="images/me.jpg" onerror="this.src='https://placehold.co/400x500/fdf2f2/5d4a44?text=Profile+Image'" class="portfolio-img">
                     </div>
                 </div>
             </div>
             <div class="w-full md:w-3/5">
-                <h2 class="section-title text-2xl font-serif mb-8 italic">Hello, I'm Pei-Yun!</h2>
+                <h2 class="text-2xl font-serif mb-8 italic">Hello, I'm Pei-Yun!</h2>
                 <p class="text-lg leading-[2] mb-10 text-gray-600 font-light">
                     我習慣從觀察中推導事情的脈絡，整理問題與方向，做事講求條理與效率，也重視實際執行的完整度。對新事物總抱有高度好奇，享受接觸陌生領域時的學習過程與成就感。面對不同的人與狀況時，能快速理解需求並靈活應對，在溝通與合作中找到適合的平衡方式。
                 </p>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm opacity-80">
-                    <div><p class="font-bold text-clay uppercase tracking-widest text-[10px]">生日</p>2003.09.23</div>
-                    <div><p class="font-bold text-clay uppercase tracking-widest text-[10px]">學歷</p>銘傳大學 商業設計</div>
-                    <div><p class="font-bold text-clay uppercase tracking-widest text-[10px]">地點</p>台北 / 台灣</div>
-                </div>
             </div>
         </div>
     </section>
@@ -175,29 +137,26 @@
                 <span class="font-hand text-2xl text-pink-400">selected projects.</span>
             </div>
 
-            <!-- 作品網格 -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 items-start">
                 
-                <!-- 01 麵包坊項目 -->
+                <!-- 01 麵包坊 -->
                 <a href="https://breadnbutterbakery.webflow.io" target="_blank" class="group work-card block">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition">01</span>
+                            <span class="text-3xl font-serif text-pink-200">01</span>
                             <h3 class="text-lg font-serif font-bold">麵包坊網站</h3>
-                        </div>
-                        <div class="cta-button-mini">
-                            Link <i data-lucide="arrow-up-right" class="w-2.5 h-2.5"></i>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-[#fcf9f8] rounded-xl overflow-hidden">
-                            <img src="images/web_bread.png" onerror="this.src='https://placehold.co/800x500/fcf9f8/5d4a44?text=Web+Design'" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            <!-- 確認檔名為 bread.jpg -->
+                            <img src="images/bread.jpg" onerror="this.src='https://placehold.co/800x500/fcf9f8/5d4a44?text=Web+Design'" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計 </p>
                 </a>
 
-                <!-- 02 日記 App 項目 -->
+                <!-- 02 日記 App (Mockup 圖 + 自動播放影片) -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -206,13 +165,15 @@
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2">
-                            <div class="h-full aspect-square bg-gray-50 rounded-xl overflow-hidden shadow-inner">
-                                <img src="images/app_diary_mockup.png" onerror="this.src='https://placehold.co/400x400/eeeeee/5d4a44?text=Mockup'" class="portfolio-img">
+                        <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2 bg-gray-50 rounded-xl">
+                            <div class="h-full aspect-square overflow-hidden rounded-xl">
+                                <!-- 確認檔名為 diary_mockup.jpg -->
+                                <img src="images/diary_mockup.jpg" onerror="this.src='https://placehold.co/400x400/eeeeee/5d4a44?text=Mockup'" class="portfolio-img">
                             </div>
-                            <div class="h-full aspect-[9/16] bg-black rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                            <div class="h-full aspect-[9/16] bg-black rounded-xl overflow-hidden shadow-lg">
+                                <!-- 確認檔名為 diary_video.mp4 -->
                                 <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                                    <source src="images/app_diary_video.mp4" type="video/mp4">
+                                    <source src="images/diary_video.mp4" type="video/mp4">
                                 </video>
                             </div>
                         </div>
@@ -220,7 +181,7 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">UI/UX 設計</p>
                 </div>
 
-                <!-- 03 偶像手牌項目 -->
+                <!-- 03 偶像手牌 -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -230,95 +191,75 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden">
-                            <img src="images/graphic_idol.png" onerror="this.src='https://placehold.co/800x500/eeeeee/5d4a44?text=Graphic+Design'" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            <!-- 確認檔名為 graphic_idol.jpg -->
+                            <img src="images/graphic_idol.jpg" onerror="this.src='https://placehold.co/800x500/eeeeee/5d4a44?text=Graphic+Design'" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
 
-                <!-- 04 微電影項目 -->
-                <a href="https://youtu.be/A5o_tMuQSug" target="_blank" class="group work-card block">
+                <!-- 04 微電影 (自動播放預覽影片) -->
+                <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
-                            <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition">04</span>
+                            <span class="text-3xl font-serif text-pink-200">04</span>
                             <h3 class="text-lg font-serif font-bold">微電影作品</h3>
-                        </div>
-                        <div class="cta-button-mini">
-                            Watch <i data-lucide="play" class="w-2.5 h-2.5 fill-current"></i>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] bg-gray-200 rounded-xl overflow-hidden relative shadow-inner">
-                            <!-- 確保影片自動播放且循環 -->
-                            <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition duration-700">
-                                <source src="images/video_movie.mp4" type="video/mp4">
+                        <div class="aspect-[16/10] bg-black rounded-xl overflow-hidden relative">
+                            <!-- 確認檔名為 movie.mp4 -->
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-xl">
+                                <source src="images/movie.mp4" type="video/mp4">
                             </video>
-                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <div class="w-10 h-10 bg-white/60 rounded-full flex items-center justify-center shadow-lg"><i data-lucide="play" class="text-pink-400 w-4 h-4"></i></div>
-                            </div>
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯 </p>
-                </a>
+                </div>
             </div>
 
-            <!-- 05 紙祀 (全寬區塊) -->
+            <!-- 05 紙祀 (包含自動播放影片) -->
             <div class="mt-16 pt-16 border-t border-pink-100 group">
                 <div class="flex items-baseline gap-4 mb-8">
                     <span class="text-4xl font-serif text-pink-200">05</span>
                     <h3 class="text-2xl font-serif font-bold tracking-tight">Zhi-Si 紙祀</h3>
                 </div>
                 <div class="bg-white p-3 rounded-3xl shadow-sm">
-                    <!-- 提高紙祀區塊高度為 500px -->
                     <div class="zhisi-grid min-h-[500px]">
                         <div class="rounded-xl overflow-hidden bg-gray-50">
-                            <img src="images/zhisi_photo_1.png" onerror="this.src='https://placehold.co/400x600/eeeeee/5d4a44?text=Photo+1'" class="portfolio-img">
+                            <!-- 確認檔名為 zhisi_1.jpg -->
+                            <img src="images/zhisi_1.jpg" onerror="this.src='https://placehold.co/400x600/eeeeee/5d4a44?text=Photo+1'" class="portfolio-img">
                         </div>
                         <div class="rounded-xl overflow-hidden bg-black shadow-xl">
+                            <!-- 確認檔名為 zhisi_main.mp4 -->
                             <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                                <source src="images/zhisi_video_main.mp4" type="video/mp4">
+                                <source src="images/zhisi_main.mp4" type="video/mp4">
                             </video>
                         </div>
                         <div class="rounded-xl overflow-hidden bg-gray-50">
-                            <img src="images/zhisi_photo_2.png" onerror="this.src='https://placehold.co/400x600/eeeeee/5d4a44?text=Photo+2'" class="portfolio-img">
+                            <!-- 確認檔名為 zhisi_2.jpg -->
+                            <img src="images/zhisi_2.jpg" onerror="this.src='https://placehold.co/400x600/eeeeee/5d4a44?text=Photo+2'" class="portfolio-img">
                         </div>
                     </div>
                 </div>
-                <div class="mt-6 flex flex-col md:flex-row justify-between gap-4">
+                <div class="mt-6">
                     <p class="text-[10px] tracking-widest uppercase text-clay font-bold">產品設計 / 品牌設計 / 實體立體結構</p>
-                    <p class="max-w-md text-sm text-gray-500 font-light leading-relaxed">以紙為介，中元祭品的革新與再造。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 聯絡資訊區塊 -->
-    <footer id="contact" class="py-24 px-6 bg-white relative overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-64 h-64 bg-pink-50 rounded-full blur-3xl opacity-50"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <h2 class="text-5xl md:text-6xl font-serif italic mb-10">Keep in touch!</h2>
-            <div class="flex flex-col items-center gap-6">
-                <a href="mailto:sally.chung20030923@gmail.com" class="text-xl md:text-2xl hover:text-pink-400 transition underline underline-offset-8 decoration-pink-100 decoration-2">sally.chung20030923@gmail.com</a>
-                <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 mt-8 text-[10px] font-bold tracking-[0.4em] text-clay uppercase">
-                    <a href="mailto:sally.chung20030923@gmail.com" class="hover:text-pink-400 transition flex items-center gap-2">
-                        <i data-lucide="mail" class="w-3 h-3"></i> Email
-                    </a>
-                    <a href="tel:+886908800923" class="hover:text-pink-400 transition flex items-center gap-2">
-                        <i data-lucide="phone" class="w-3 h-3"></i> Phone
-                    </a>
-                    <a href="https://www.instagram.com/__scpy/" target="_blank" class="hover:text-pink-400 transition flex items-center gap-2">
-                        <i data-lucide="instagram" class="w-3 h-3"></i> Instagram
-                    </a>
-                </div>
-            </div>
-            <div class="mt-20 opacity-30 text-[9px] tracking-widest uppercase">
-                &copy; 2026 Pei-Yun Chung. Designed with Care.
-            </div>
+    <!-- 聯絡資訊 -->
+    <footer id="contact" class="py-24 px-6 bg-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-5xl md:text-6xl font-serif italic mb-10 text-clay">Keep in touch!</h2>
+            <a href="mailto:sally.chung20030923@gmail.com" class="text-lg md:text-xl hover:text-pink-400 transition underline underline-offset-8 decoration-pink-100">sally.chung20030923@gmail.com</a>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
+        // 平滑捲動
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
