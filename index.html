@@ -71,7 +71,6 @@
             border-radius: 12px;
         }
 
-        /* 作品標題區塊高度 */
         .work-header {
             min-height: 50px; 
             display: flex;
@@ -79,7 +78,6 @@
             justify-content: space-between; 
         }
 
-        /* 精簡版引導按鈕 */
         .cta-button-mini {
             display: inline-flex;
             align-items: center;
@@ -151,7 +149,8 @@
             <div class="w-full md:w-2/5">
                 <div class="bg-white p-3 rounded-2xl shadow-xl transform -rotate-2">
                     <div class="aspect-[4/5] bg-[#fdf2f2] rounded-xl overflow-hidden">
-                        <img src="./images/profile.jpg" onerror="this.src='https://via.placeholder.com/400x500?text=Profile+Image'" class="portfolio-img">
+                        <!-- 確認 GitHub 上是否有 images/profile.jpg -->
+                        <img src="images/profile.jpg" onerror="this.src='https://via.placeholder.com/400x500?text=Profile+Image'" class="portfolio-img">
                     </div>
                 </div>
             </div>
@@ -193,13 +192,13 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-[#fcf9f8] rounded-xl overflow-hidden">
-                            <img src=".images/web_bread.png" onerror="this.src='https://via.placeholder.com/800x500?text=Web+Design'" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            <img src="images/web_bread.png" onerror="this.src='https://via.placeholder.com/800x500?text=Web+Design'" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計 </p>
                 </a>
 
-                <!-- 02 日記 App 項目 (已調整比例：方形圖片 + 細長手機比例影片) -->
+                <!-- 02 日記 App 項目 -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
@@ -208,16 +207,13 @@
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <!-- 整體容器維持 16/10 確保與其他卡片等高 -->
                         <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2">
-                            <!-- 左側：方形圖片 (適合放 Mockup 或 Logo) -->
                             <div class="h-full aspect-square bg-gray-50 rounded-xl overflow-hidden shadow-inner">
-                                <img src="./images/app_diary_mockup.png" onerror="this.src='https://via.placeholder.com/400x400?text=Mockup'" class="portfolio-img">
+                                <img src="images/app_diary_mockup.png" onerror="this.src='https://via.placeholder.com/400x400?text=Mockup'" class="portfolio-img">
                             </div>
-                            <!-- 右側：手機比例影片 (9:16) -->
                             <div class="h-full aspect-[9/16] bg-black rounded-xl overflow-hidden shadow-lg border border-gray-100">
                                 <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                                    <source src="./images/app_diary_video.mp4" type="video/mp4">
+                                    <source src="images/app_diary_video.mp4" type="video/mp4">
                                 </video>
                             </div>
                         </div>
@@ -235,7 +231,7 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden">
-                            <img src="./images/graphic_idol.jpg" onerror="this.src='https://via.placeholder.com/800x500?text=Graphic+Design'" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            <img src="images/graphic_idol.png" onerror="this.src='https://via.placeholder.com/800x500?text=Graphic+Design'" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
@@ -253,9 +249,12 @@
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] bg-gray-200 rounded-xl overflow-hidden relative">
-                            <img src="./images/video_movie_cover.jpg" onerror="this.src='https://via.placeholder.com/800x500?text=Video+Project'" class="portfolio-img group-hover:scale-105 transition duration-700">
-                            <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="aspect-[16/10] bg-gray-200 rounded-xl overflow-hidden relative shadow-inner">
+                            <!-- 修正：將 <img> 改為 <video> 標籤展示 mp4 -->
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition duration-700">
+                                <source src="images/video_movie.mp4" type="video/mp4">
+                            </video>
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                                 <div class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg"><i data-lucide="play" class="text-pink-400 w-4 h-4"></i></div>
                             </div>
                         </div>
@@ -273,15 +272,16 @@
                 <div class="bg-white p-3 rounded-3xl shadow-sm">
                     <div class="zhisi-grid min-h-[350px]">
                         <div class="rounded-xl overflow-hidden bg-gray-50">
-                            <img src="./images/zhisi_photo_1.jpg" onerror="this.src='https://via.placeholder.com/400x600?text=Photo+1'" class="portfolio-img">
+                            <img src="images/zhisi_photo_1.png" onerror="this.src='https://via.placeholder.com/400x600?text=Photo+1'" class="portfolio-img">
                         </div>
                         <div class="rounded-xl overflow-hidden bg-black shadow-xl">
+                            <!-- 注意：副檔名 .MOV 在某些瀏覽器可能不相容，建議 GitHub 上使用小寫 .mov 或轉成 .mp4 -->
                             <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                                <source src="./images/zhisi_video_main.mp4" type="video/mp4">
+                                <source src="images/zhisi_video_main.MOV" type="video/mp4">
                             </video>
                         </div>
                         <div class="rounded-xl overflow-hidden bg-gray-50">
-                            <img src="./images/zhisi_photo_2.jpg" onerror="this.src='https://via.placeholder.com/400x600?text=Photo+2'" class="portfolio-img">
+                            <img src="images/zhisi_photo_2.png" onerror="this.src='https://via.placeholder.com/400x600?text=Photo+2'" class="portfolio-img">
                         </div>
                     </div>
                 </div>
@@ -299,24 +299,19 @@
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <h2 class="text-5xl md:text-6xl font-serif italic mb-10">Keep in touch!</h2>
             <div class="flex flex-col items-center gap-6">
-                <!-- Email 連結 -->
                 <a href="mailto:sally.chung20030923@gmail.com" class="text-xl md:text-2xl hover:text-pink-400 transition underline underline-offset-8 decoration-pink-100 decoration-2">sally.chung20030923@gmail.com</a>
-                
                 <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 mt-8 text-[10px] font-bold tracking-[0.4em] text-clay uppercase">
                     <a href="mailto:sally.chung20030923@gmail.com" class="hover:text-pink-400 transition flex items-center gap-2">
                         <i data-lucide="mail" class="w-3 h-3"></i> Email
                     </a>
-                    <!-- 電話連結 -->
                     <a href="tel:+886908800923" class="hover:text-pink-400 transition flex items-center gap-2">
                         <i data-lucide="phone" class="w-3 h-3"></i> Phone
                     </a>
-                    <!-- Instagram 連結 -->
                     <a href="https://www.instagram.com/__scpy/" target="_blank" class="hover:text-pink-400 transition flex items-center gap-2">
                         <i data-lucide="instagram" class="w-3 h-3"></i> Instagram
                     </a>
                 </div>
             </div>
-            
             <div class="mt-20 opacity-30 text-[9px] tracking-widest uppercase">
                 &copy; 2026 Pei-Yun Chung. Designed with Care.
             </div>
@@ -325,8 +320,6 @@
 
     <script>
         lucide.createIcons();
-        
-        // 平滑捲動腳本，確保排除 mailto/tel/https 連結
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
