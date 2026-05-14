@@ -80,21 +80,34 @@
             display: block;
         }
 
-        /* 影片容器 RWD 比例 (16:9) */
-        .video-aspect-container {
+        /* 影片容器 - 透過裁切隱藏 YouTube 標題與 UI */
+        .video-clean-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; 
-            height: 0;
+            height: 100%;
+            overflow: hidden; 
             border-radius: 12px;
-            overflow: hidden;
             background: #000;
         }
-        .video-aspect-container iframe {
+
+        .video-clean-wrapper iframe {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: -15%; 
+            left: -5%; 
+            width: 110%; 
+            height: 130%; 
             border: 0;
+            pointer-events: none; 
+        }
+
+        /* 統一 16:10 比例容器，用於對齊 03 與 04 */
+        .uniform-aspect-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
         }
 
         .zhisi-grid {
@@ -201,14 +214,14 @@
                         <h3 class="text-xl font-bold font-serif flex items-center gap-2">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] overflow-hidden rounded-xl">
+                        <div class="uniform-aspect-box">
                             <img src="./images/web_bread.png" alt="麵包坊網站" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計</p>
                 </a>
 
-                <!-- 02 日記 App (修正：使用 embed 連結解決拒絕連線) -->
+                <!-- 02 日記 App -->
                 <div class="group work-card">
                     <div class="mb-3 flex items-baseline gap-3">
                         <span class="text-3xl font-serif text-pink-200">02</span>
@@ -216,16 +229,13 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] flex gap-4 p-2 bg-gray-50 rounded-xl">
-                            <!-- 左側 Mockup 圖 -->
                             <div class="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
                                 <img src="./images/app_diary_mockup.png" alt="日記 App" class="portfolio-img">
                             </div>
-                            <!-- 右側嵌入影片 (修正為嵌入格式) -->
-                            <div class="flex-1 overflow-hidden rounded-xl bg-black shadow-lg">
-                                <div class="relative w-full h-full">
+                            <div class="flex-1 overflow-hidden rounded-xl shadow-lg">
+                                <div class="video-clean-wrapper">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/g1dDQtdk2tw?autoplay=1&mute=1&loop=1&playlist=g1dDQtdk2tw&controls=0&modestbranding=1" 
-                                        class="absolute top-0 left-0 w-full h-full border-0"
+                                        src="https://youtu.be/g1dDQtdk2tw" 
                                         allow="autoplay; encrypted-media" 
                                         allowfullscreen>
                                     </iframe>
@@ -236,21 +246,22 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">UI/UX 設計</p>
                 </div>
 
-                <!-- 03 Graphic -->
+                <!-- 03 Graphic (對齊優化) -->
                 <div class="group work-card">
                     <div class="mb-3 flex items-baseline gap-3">
                         <span class="text-3xl font-serif text-pink-200">03</span>
                         <h3 class="text-xl font-bold font-serif">偶像應援手牌</h3>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] overflow-hidden rounded-xl">
+                        <!-- 使用統一比例容器 -->
+                        <div class="uniform-aspect-box">
                             <img src="./images/graphic_idol.png" alt="應援手牌" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
 
-                <!-- 04 微電影作品 (修正：使用 embed 連結) -->
+                <!-- 04 微電影作品 (對齊優化) -->
                 <div class="group work-card">
                     <div class="mb-3 flex items-baseline gap-3">
                         <span class="text-3xl font-serif text-pink-200">04</span>
@@ -259,15 +270,22 @@
                         </a>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="video-aspect-container">
-                            <iframe src="https://www.youtube.com/embed/A5o_tMuQSug" allowfullscreen></iframe>
+                        <!-- 使用統一比例容器 + 影片裁切 -->
+                        <div class="uniform-aspect-box bg-black">
+                            <div class="video-clean-wrapper">
+                                <iframe 
+                                    src="https://youtu.be/A5o_tMuQSug" 
+                                    class="scale-110"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯</p>
                 </div>
             </div>
 
-            <!-- 05 紙祀 (修正：使用 embed 連結) -->
+            <!-- 05 紙祀 -->
             <div class="mt-16 pt-16 border-t border-pink-100 group">
                 <div class="flex items-baseline gap-4 mb-8">
                     <span class="text-4xl font-serif text-pink-200">05</span>
@@ -278,8 +296,10 @@
                         <div class="rounded-xl overflow-hidden">
                             <img src="./images/zhisi_photo_1.png" class="portfolio-img">
                         </div>
-                        <div class="video-aspect-container !pb-0 md:h-full">
-                            <iframe src="https://www.youtube.com/embed/rjCcQzGU5Ps" class="h-full" allowfullscreen></iframe>
+                        <div class="rounded-xl overflow-hidden shadow-inner">
+                            <div class="video-clean-wrapper">
+                                <iframe src="https://youtu.be/rjCcQzGU5Ps" class="h-full" allowfullscreen></iframe>
+                            </div>
                         </div>
                         <div class="rounded-xl overflow-hidden">
                             <img src="./images/zhisi_photo_2.png" class="portfolio-img">
