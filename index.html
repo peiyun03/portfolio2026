@@ -89,11 +89,10 @@
             justify-content: space-between; 
         }
 
-        /* 統一作品標題字型與字級 */
         .work-title {
-            font-size: 1.25rem !important; 
-            font-family: 'Playfair Display', serif !important;
-            font-weight: 700 !important;
+            font-size: 1.25rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -108,7 +107,6 @@
         }
         @media (max-width: 768px) {
             .zhisi-grid { grid-template-columns: 1fr; }
-            .work-header { flex-direction: row; align-items: center; }
         }
         
         .video-container {
@@ -120,21 +118,11 @@
             border-radius: 12px;
             cursor: pointer;
         }
-        .video-container.load-error {
-            background-color: #e5e0dc;
-        }
-        .video-container.load-error::after {
-            content: 'VIDEO LOAD ERROR';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 10px; color: #b5a49d;
-        }
         video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            background: #000;
+            display: block;
         }
 
         /* 播放按鈕圖示 */
@@ -212,7 +200,7 @@
             <div class="w-full md:w-2/5">
                 <div class="bg-white p-3 rounded-2xl shadow-xl transform -rotate-2">
                     <div class="aspect-[4/5] bg-[#fdf2f2] rounded-xl overflow-hidden relative">
-                        <img src="./images/profile.png" alt="鐘霈芸個人照" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x500?text=Profile+Error'">
+                        <img src="./images/profile.png" alt="鐘霈芸個人照" class="portfolio-img">
                     </div>
                 </div>
             </div>
@@ -253,12 +241,12 @@
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
                             <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">01</span>
-                            <h3 class="work-title">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
+                            <h3 class="work-title">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50 ml-1"></i></h3>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-[#fcf9f8] rounded-xl overflow-hidden">
-                            <img src="./images/web_bread.png" alt="麵包坊網站設計" class="portfolio-img group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x500?text=Web+Image+Not+Found'">
+                            <img src="./images/web_bread.png" alt="麵包坊網站設計" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計</p>
@@ -275,10 +263,10 @@
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] flex gap-4 items-center justify-center p-2 bg-gray-50 rounded-xl">
                             <div class="h-full aspect-square overflow-hidden rounded-xl bg-white shadow-sm">
-                                <img src="./images/app_diary_mockup.png" alt="日記 App 模型" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x400?text=Mockup+Not+Found'">
+                                <img src="./images/app_diary_mockup.png" alt="日記 App 模型" class="portfolio-img">
                             </div>
                             <div class="h-full aspect-[9/16] video-container shadow-lg">
-                                <video loop muted playsinline poster="./images/app_diary_mockup.png" class="video-element">
+                                <video loop muted playsinline preload="auto" poster="./images/app_diary_mockup.png" class="video-element">
                                     <source src="./images/app_diary_video.mp4" type="video/mp4">
                                 </video>
                             </div>
@@ -297,7 +285,7 @@
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden">
-                            <img src="./images/graphic_idol.png" alt="偶像應援手牌設計" class="portfolio-img group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x500?text=Graphic+Image+Not+Found'">
+                            <img src="./images/graphic_idol.png" alt="偶像應援手牌設計" class="portfolio-img group-hover:scale-105 transition duration-700">
                         </div>
                     </div>
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
@@ -308,17 +296,12 @@
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
                             <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">04</span>
-                            <h3 class="work-title">
-                                微電影作品
-                                <a href="https://www.youtube.com/watch?v=您的影片ID" target="_blank" class="hover:scale-110 transition-transform inline-flex">
-                                    <i data-lucide="play-circle" class="w-6 h-6 text-red-400 opacity-80"></i>
-                                </a>
-                            </h3>
+                            <h3 class="work-title">微電影作品</h3>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] video-container">
-                            <video loop muted playsinline class="video-element">
+                            <video loop muted playsinline preload="auto" class="video-element">
                                 <source src="./images/video_movie.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -336,15 +319,15 @@
                 <div class="bg-white p-3 rounded-3xl shadow-sm">
                     <div class="zhisi-grid min-h-[500px]">
                         <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
-                            <img src="./images/zhisi_photo_1.png" alt="紙祀產品照片 1" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x600?text=ZhiSi+Photo+1'">
+                            <img src="./images/zhisi_photo_1.png" alt="紙祀產品照片 1" class="portfolio-img">
                         </div>
                         <div class="video-container shadow-xl aspect-[4/6] md:aspect-auto">
-                            <video loop muted playsinline class="video-element">
-                                <source src="./images/zzhisi_video_main.mp4" type="video/mp4">
+                            <video loop muted playsinline preload="auto" class="video-element">
+                                <source src="./images/zhisi_video_main.mp4" type="video/mp4">
                             </video>
                         </div>
                         <div class="rounded-xl overflow-hidden bg-gray-50 aspect-[4/6] md:aspect-auto">
-                            <img src="./images/zhisi_photo_2.png" alt="紙祀產品照片 2" class="portfolio-img" onerror="this.src='https://via.placeholder.com/400x600?text=ZhiSi+Photo+2'">
+                            <img src="./images/zhisi_photo_2.png" alt="紙祀產品照片 2" class="portfolio-img">
                         </div>
                     </div>
                 </div>
@@ -371,7 +354,6 @@
                         <span class="font-hand text-3xl text-pink-400 absolute -top-8 left-0">Let's work together!</span>
                         <h2 class="text-6xl md:text-8xl font-serif font-bold text-clay tracking-tighter">Keep in<br>touch!</h2>
                     </div>
-                    
                     <div class="group relative inline-block">
                         <div class="absolute -inset-1 bg-gradient-to-r from-pink-100 to-orange-50 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
                         <a href="mailto:sally.chung20030923@gmail.com" class="relative block bg-white/40 backdrop-blur-md border border-white/60 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
@@ -395,11 +377,9 @@
                             <p class="text-[10px] tracking-widest font-bold text-clay uppercase opacity-40">Contact</p>
                             <ul class="space-y-2">
                                 <li><a href="tel:+886908800923" class="hover:text-pink-400 transition">0908-800-923</a></li>
-                                <li><p class="opacity-80">Taipei, Taiwan</p></li>
                             </ul>
                         </div>
                     </div>
-                    
                     <div class="text-left md:text-right">
                         <p class="text-[10px] tracking-[0.5em] font-light text-gray-400 uppercase italic mb-1">Pei-Yun Chung Portfolio.</p>
                         <p class="opacity-20 text-[9px] tracking-widest uppercase">&copy; 2026. All rights reserved.</p>
@@ -421,46 +401,18 @@
             }
         });
 
-        // 平滑捲動
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href');
-                if (targetId && targetId.startsWith('#') && targetId.length > 1) {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
-
         // 點擊播放/暫停邏輯
         document.querySelectorAll('.video-container').forEach(container => {
             const video = container.querySelector('video');
             
-            container.addEventListener('click', function(e) {
-                // 如果點擊的是 a 標籤或其子元素，不觸發播放邏輯
-                if (e.target.closest('a')) return;
-
+            container.addEventListener('click', function() {
                 if (video.paused) {
-                    // 嘗試播放並處理瀏覽器阻擋
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                        playPromise.then(_ => {
-                            container.classList.add('is-playing');
-                        }).catch(error => {
-                            console.log("Autoplay was prevented");
-                        });
-                    }
+                    video.play();
+                    container.classList.add('is-playing');
                 } else {
                     video.pause();
                     container.classList.remove('is-playing');
                 }
-            });
-
-            video.addEventListener('error', function() {
-                container.classList.add('load-error');
             });
         });
     </script>
