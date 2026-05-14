@@ -88,6 +88,12 @@
             align-items: center; 
             justify-content: space-between; 
         }
+        /* 統一作品標題字型與字級 */
+        .work-title {
+            font-size: 1.25rem; /* text-xl */
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
 
         .zhisi-grid {
             display: grid;
@@ -267,18 +273,24 @@
                     <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
                 </div>
 
-                <!-- 04 Movie (影片修正) -->
+                <!-- 04 Movie -->
                 <div class="group work-card">
                     <div class="work-header mb-3">
                         <div class="flex items-baseline gap-3">
                             <span class="text-3xl font-serif text-pink-200 group-hover:text-pink-400 transition-colors">04</span>
-                            <h3 class="text-lg font-serif font-bold flex items-center gap-2">微電影作品<i data-lucide="play-circle" class="w-5 h-5 text-red-400 opacity-60"></i></h3>
+                            <h3 class="work-title flex items-center gap-2">
+                                微電影作品
+                                <!-- 聯動至外部影片連結的按鈕 -->
+                                <a href="https://www.youtube.com/watch?your-video-id" target="_blank" class="hover:scale-110 transition-transform">
+                                    <i data-lucide="play-circle" class="w-6 h-6 text-red-400 opacity-80"></i>
+                                </a>
+                            </h3>
                         </div>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                         <div class="aspect-[16/10] video-container">
-                            <video autoplay loop muted playsinline class="video-element">
-                                <source src="./images/video_movie.mp4" type="video/mp4">
+                            <video loop muted playsinline class="video-element">
+                                <source src="images/video_movie.mp4" type="video/mp4">
                             </video>
                         </div>
                     </div>
