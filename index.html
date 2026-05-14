@@ -38,38 +38,59 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* 頁尾動態跑馬燈 */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-        }
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 40s linear infinite;
-        }
-
-        .grid-item {
-            aspect-ratio: 1 / 1;
-            background-color: var(--soft-white);
-            border-radius: 12px;
+        /* 互動篩選標籤設計 */
+        .filter-btn {
             display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 8px;
-            text-align: center;
-            font-size: 10px;
-            color: #b5a49d;
+            gap: 16px;
+            padding: 16px 28px;
+            background-color: var(--soft-white);
+            border-radius: 16px;
+            border: 1px solid rgba(166, 139, 129, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
-        .grid-item:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 10px 20px rgba(242, 209, 209, 0.4);
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--accent-pink);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        .filter-btn.active {
+            background-color: var(--deep-brown);
+            transform: translateX(12px);
+            box-shadow: 10px 10px 30px rgba(74, 58, 53, 0.15);
+        }
+        .filter-btn.active::before { transform: scaleY(1); }
+        .filter-btn.active .filter-label { color: white; }
+        .filter-btn.active i { color: var(--accent-pink); }
+        
+        .filter-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--clay);
+            transition: color 0.3s ease;
+        }
+
+        /* 作品卡片過濾動畫 */
+        .work-item {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .work-item.hidden {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            pointer-events: none;
+            display: none;
         }
 
         .portfolio-img {
@@ -80,7 +101,6 @@
             display: block;
         }
 
-        /* 影片容器 - 修復顯示問題 */
         .video-clean-wrapper {
             position: relative;
             width: 100%;
@@ -89,8 +109,6 @@
             border-radius: 12px;
             background: #000;
         }
-
-        /* 恢復穩定的 iframe 設定，移除會導致無法顯示的裁切負值 */
         .video-clean-wrapper iframe {
             position: absolute;
             top: 0;
@@ -100,7 +118,6 @@
             border: 0;
         }
 
-        /* 統一比例容器，用於對齊 03 與 04 */
         .uniform-aspect-box {
             position: relative;
             width: 100%;
@@ -119,6 +136,35 @@
         @media (max-width: 768px) {
             .zhisi-grid { grid-template-columns: 1fr; }
         }
+
+        html { scroll-behavior: smooth; }
+
+        /* 滑鼠跟隨裝飾 */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--clay);
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.5;
+        }
+
+        /* 跑馬燈效果維持原本設計 */
+        .marquee-container {
+            overflow: hidden;
+            background-color: #fdfaf8;
+        }
+        .marquee-content {
+            display: flex;
+            width: fit-content;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -129,24 +175,55 @@
         <div class="space-x-8 text-[10px] tracking-[0.3em] uppercase hidden md:flex font-bold">
             <a href="#home" class="hover:text-pink-400 transition">Home</a>
             <a href="#about" class="hover:text-pink-400 transition">About</a>
-            <a href="#content" class="hover:text-pink-400 transition">Works</a>
+            <!-- 導覽列下拉或點擊連動 Works -->
+            <a href="#content" onclick="filterWorks('all')" class="hover:text-pink-400 transition">Works</a>
             <a href="#contact" class="hover:text-pink-400 transition">Contact</a>
         </div>
     </nav>
 
     <!-- 首頁區塊 -->
     <section id="home" class="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-24 py-20 gap-12 md:gap-20">
-        <div class="w-full md:w-1/2 max-sm:max-w-[280px] max-w-sm relative">
-            <div class="grid grid-cols-3 gap-3">
-                <div class="grid-item shadow-sm">Web</div>
-                <div class="grid-item shadow-sm">App</div>
-                <div class="grid-item shadow-sm">Graphic</div>
-                <div class="grid-item shadow-sm">Video</div>
-                <div class="grid-item shadow-sm">Zhi-Si</div>
+        <!-- 左側：作品篩選控制中心 -->
+        <div class="w-full md:w-1/2 max-w-sm relative">
+            <div class="mb-10">
+                <p class="text-[10px] tracking-[0.4em] text-clay font-bold uppercase opacity-50 mb-2">Projects Filter</p>
+            </div>
+            
+            <div class="flex flex-col gap-3">
+                <div onclick="filterWorks('all')" class="filter-btn active" data-filter="all">
+                    <i data-lucide="layout-grid"></i>
+                    <span class="filter-label">All Projects / 全部展示</span>
+                </div>
+                <div onclick="filterWorks('web')" class="filter-btn" data-filter="web">
+                    <i data-lucide="layout"></i>
+                    <span class="filter-label">Web Design / 網頁</span>
+                </div>
+                <div onclick="filterWorks('app')" class="filter-btn" data-filter="app">
+                    <i data-lucide="smartphone"></i>
+                    <span class="filter-label">App UI/UX / 行動應用</span>
+                </div>
+                <div onclick="filterWorks('graphic')" class="filter-btn" data-filter="graphic">
+                    <i data-lucide="palette"></i>
+                    <span class="filter-label">Graphic Design / 平面</span>
+                </div>
+                <div onclick="filterWorks('video')" class="filter-btn" data-filter="video">
+                    <i data-lucide="film"></i>
+                    <span class="filter-label">Video / 影片作品</span>
+                </div>
+                <div onclick="filterWorks('product')" class="filter-btn" data-filter="product">
+                    <i data-lucide="box"></i>
+                    <span class="filter-label">Product / 產品設計</span>
+                </div>
+            </div>
+            
+            <div class="mt-10">
+                <span class="font-hand text-xl text-pink-400 opacity-60">Select to View →</span>
             </div>
         </div>
+
+        <!-- 右側：標題文字區 -->
         <div class="w-full md:w-1/2">
-            <div class="inline-block px-3 py-1 bg-white rounded-full text-[9px] tracking-widest uppercase mb-6 shadow-sm border border-pink-100/50">Fresh Graduate 2026</div>
+            <div class="inline-block px-3 py-1 bg-white rounded-full text-[9px] tracking-widest uppercase mb-6 shadow-sm border border-pink-100/50">SELECTED WORKS 2026</div>
             <h1 class="text-7xl md:text-9xl font-serif font-bold leading-[0.8] mb-8 text-[#4a3a35]">Portfolio</h1>
             <div class="space-y-6">
                 <div class="flex items-baseline gap-4">
@@ -199,124 +276,138 @@
     </section>
 
     <!-- 作品集內容區塊 -->
-    <section id="content" class="py-24 px-6 md:px-20">
+    <section id="content" class="py-24 px-6 md:px-20 min-h-screen">
         <div class="max-w-6xl mx-auto">
             <div class="flex items-center justify-between mb-16 border-b border-pink-100 pb-8">
                 <h2 class="text-4xl font-serif italic">Content</h2>
-                <span class="font-hand text-2xl text-pink-400">selected projects.</span>
+                <span id="current-filter-tag" class="font-hand text-2xl text-pink-400">all collections.</span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 items-start">
+            
+            <div id="works-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 items-start">
                 
                 <!-- 01 Web -->
-                <a href="https://breadnbutterbakery.webflow.io" target="_blank" class="group work-card block">
-                    <div class="mb-3 flex items-baseline gap-3">
-                        <span class="text-3xl font-serif text-pink-200">01</span>
-                        <h3 class="text-xl font-bold font-serif flex items-center gap-2">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
-                    </div>
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="uniform-aspect-box">
-                            <img src="./images/web_bread.png" alt="麵包坊網站" class="portfolio-img group-hover:scale-105 transition duration-700">
+                <div class="work-item" data-category="web">
+                    <a href="https://breadnbutterbakery.webflow.io" target="_blank" class="group block">
+                        <div class="mb-3 flex items-baseline gap-3">
+                            <span class="text-3xl font-serif text-pink-200">01</span>
+                            <h3 class="text-xl font-bold font-serif flex items-center gap-2">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
                         </div>
-                    </div>
-                    <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計</p>
-                </a>
+                        <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
+                            <div class="uniform-aspect-box">
+                                <img src="./images/web_bread.png" alt="麵包坊網站" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            </div>
+                        </div>
+                        <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">網頁介面設計</p>
+                    </a>
+                </div>
 
                 <!-- 02 日記 App -->
-                <div class="group work-card">
-                    <div class="mb-3 flex items-baseline gap-3">
-                        <span class="text-3xl font-serif text-pink-200">02</span>
-                        <h3 class="text-xl font-bold font-serif">日記 App</h3>
-                    </div>
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <div class="aspect-[16/10] flex gap-4 p-2 bg-gray-50 rounded-xl">
-                            <div class="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
-                                <img src="./images/app_diary_mockup.png" alt="日記 App" class="portfolio-img">
+                <div class="work-item" data-category="app">
+                    <div class="group">
+                        <div class="mb-3 flex items-baseline gap-3">
+                            <span class="text-3xl font-serif text-pink-200">02</span>
+                            <h3 class="text-xl font-bold font-serif">日記 App</h3>
+                        </div>
+                        <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
+                            <div class="aspect-[16/10] flex gap-4 p-2 bg-gray-50 rounded-xl">
+                                <div class="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
+                                    <img src="./images/app_diary_mockup.png" alt="日記 App" class="portfolio-img">
+                                </div>
+                                <div class="flex-1 overflow-hidden rounded-xl shadow-lg">
+                                    <div class="video-clean-wrapper">
+                                        <iframe 
+                                            src="https://www.youtube.com/embed/g1dDQtdk2tw?autoplay=1&mute=1&loop=1&playlist=g1dDQtdk2tw&controls=0&modestbranding=1&rel=0" 
+                                            allow="autoplay; encrypted-media" 
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex-1 overflow-hidden rounded-xl shadow-lg">
+                        </div>
+                        <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">UI/UX 設計</p>
+                    </div>
+                </div>
+
+                <!-- 03 Graphic -->
+                <div class="work-item" data-category="graphic">
+                    <div class="group">
+                        <div class="mb-3 flex items-baseline gap-3">
+                            <span class="text-3xl font-serif text-pink-200">03</span>
+                            <h3 class="text-xl font-bold font-serif">偶像應援手牌</h3>
+                        </div>
+                        <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
+                            <div class="uniform-aspect-box">
+                                <img src="./images/graphic_idol.png" alt="應援手牌" class="portfolio-img group-hover:scale-105 transition duration-700">
+                            </div>
+                        </div>
+                        <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
+                    </div>
+                </div>
+
+                <!-- 04 微電影作品 -->
+                <div class="work-item" data-category="video">
+                    <div class="group">
+                        <div class="mb-3 flex items-baseline gap-3">
+                            <span class="text-3xl font-serif text-pink-200">04</span>
+                            <a href="https://www.youtube.com/watch?v=A5o_tMuQSug" target="_blank" class="hover:text-pink-400 transition">
+                                <h3 class="text-xl font-bold font-serif flex items-center gap-2">微電影作品<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
+                            </a>
+                        </div>
+                        <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
+                            <div class="uniform-aspect-box bg-black">
                                 <div class="video-clean-wrapper">
-                                    <!-- 已將網址轉換為 embed 格式 -->
                                     <iframe 
-                                        src="https://www.youtube.com/embed/g1dDQtdk2tw?autoplay=1&mute=1&loop=1&playlist=g1dDQtdk2tw&controls=0&modestbranding=1&rel=0" 
-                                        allow="autoplay; encrypted-media" 
+                                        src="https://www.youtube.com/embed/A5o_tMuQSug?autoplay=1&mute=1&loop=1&playlist=A5o_tMuQSug&controls=0&modestbranding=1" 
                                         allowfullscreen>
                                     </iframe>
                                 </div>
                             </div>
                         </div>
+                        <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯</p>
                     </div>
-                    <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">UI/UX 設計</p>
                 </div>
 
-                <!-- 03 Graphic -->
-                <div class="group work-card">
-                    <div class="mb-3 flex items-baseline gap-3">
-                        <span class="text-3xl font-serif text-pink-200">03</span>
-                        <h3 class="text-xl font-bold font-serif">偶像應援手牌</h3>
-                    </div>
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <!-- 對齊容器：16/10 比例 -->
-                        <div class="uniform-aspect-box">
-                            <img src="./images/graphic_idol.png" alt="應援手牌" class="portfolio-img group-hover:scale-105 transition duration-700">
+                <!-- 05 紙祀 (獨立分類 Product) -->
+                <div class="work-item md:col-span-2 mt-8" data-category="product">
+                    <div class="border-t border-pink-100 pt-16 group">
+                        <div class="flex items-baseline gap-4 mb-8">
+                            <span class="text-4xl font-serif text-pink-200">05</span>
+                            <h3 class="text-2xl font-bold font-serif">Zhi-Si 紙祀</h3>
                         </div>
-                    </div>
-                    <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">平面設計</p>
-                </div>
-
-                <!-- 04 微電影作品 -->
-                <div class="group work-card">
-                    <div class="mb-3 flex items-baseline gap-3">
-                        <span class="text-3xl font-serif text-pink-200">04</span>
-                        <a href="https://www.youtube.com/watch?v=A5o_tMuQSug" target="_blank" class="hover:text-pink-400 transition">
-                            <h3 class="text-xl font-bold font-serif flex items-center gap-2">微電影作品<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
-                        </a>
-                    </div>
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
-                        <!-- 對齊容器：16/10 比例 -->
-                        <div class="uniform-aspect-box bg-black">
-                            <div class="video-clean-wrapper">
-                                <!-- 已將網址轉換為 embed 格式 -->
-                                <iframe 
-                                    src="https://www.youtube.com/embed/A5o_tMuQSug?autoplay=1&mute=1&loop=1&playlist=A5o_tMuQSug&controls=0&modestbranding=1" 
-                                    allowfullscreen>
-                                </iframe>
+                        <div class="bg-white p-3 rounded-3xl shadow-sm">
+                            <div class="zhisi-grid min-h-[450px]">
+                                <div class="rounded-xl overflow-hidden">
+                                    <img src="./images/zhisi_photo_1.png" class="portfolio-img">
+                                </div>
+                                <div class="rounded-xl overflow-hidden shadow-inner">
+                                    <div class="video-clean-wrapper">
+                                        <iframe src="https://www.youtube.com/embed/rjCcQzGU5Ps?autoplay=1&mute=1&loop=1&playlist=rjCcQzGU5Ps&controls=0&modestbranding=1" class="h-full" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                <div class="rounded-xl overflow-hidden">
+                                    <img src="./images/zhisi_photo_2.png" class="portfolio-img">
+                                </div>
                             </div>
                         </div>
+                        <p class="mt-6 text-[10px] tracking-widest uppercase text-clay font-bold opacity-70">產品設計 / 品牌設計 / 實體立體結構</p>
                     </div>
-                    <p class="mt-4 text-[10px] tracking-[0.2em] uppercase text-clay font-bold opacity-70">影片拍攝 / 剪輯</p>
                 </div>
             </div>
-
-            <!-- 05 紙祀 -->
-            <div class="mt-16 pt-16 border-t border-pink-100 group">
-                <div class="flex items-baseline gap-4 mb-8">
-                    <span class="text-4xl font-serif text-pink-200">05</span>
-                    <h3 class="text-2xl font-bold font-serif">Zhi-Si 紙祀</h3>
-                </div>
-                <div class="bg-white p-3 rounded-3xl shadow-sm">
-                    <div class="zhisi-grid min-h-[450px]">
-                        <div class="rounded-xl overflow-hidden">
-                            <img src="./images/zhisi_photo_1.png" class="portfolio-img">
-                        </div>
-                        <div class="rounded-xl overflow-hidden shadow-inner">
-                            <div class="video-clean-wrapper">
-                                <!-- 已將網址轉換為 embed 格式 -->
-                                <iframe src="https://www.youtube.com/embed/rjCcQzGU5Ps?autoplay=1&mute=1&loop=1&playlist=rjCcQzGU5Ps&controls=0&modestbranding=1" class="h-full" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="rounded-xl overflow-hidden">
-                            <img src="./images/zhisi_photo_2.png" class="portfolio-img">
-                        </div>
-                    </div>
-                </div>
-                <p class="mt-6 text-[10px] tracking-widest uppercase text-clay font-bold opacity-70">產品設計 / 品牌設計 / 實體立體結構</p>
+            
+            <!-- 無作品提示 -->
+            <div id="no-works" class="hidden py-20 text-center">
+                <p class="text-gray-300 italic">No items in this category yet.</p>
             </div>
         </div>
     </section>
 
     <!-- 頁尾區塊 -->
     <footer id="contact" class="pt-32 pb-12 bg-[#fdfaf8] border-t border-pink-100 overflow-hidden">
+        <!-- 跑馬燈維持原效果 -->
         <div class="marquee-container py-6 border-y border-pink-100/50 mb-24 -rotate-1">
             <div class="marquee-content">
+                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
+                <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
                 <span class="text-3xl md:text-5xl font-serif italic text-pink-200 opacity-60 px-8 whitespace-nowrap uppercase tracking-[0.15em]">THANKS FOR STOPPING BY /</span>
             </div>
@@ -359,11 +450,59 @@
 
     <script>
         lucide.createIcons();
+
+        // 滑鼠裝飾
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot';
+        document.body.appendChild(dot);
+        window.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+        });
+
+        // 導覽列效果
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('main-nav');
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
+
+        // 核心功能：作品篩選
+        function filterWorks(category) {
+            const items = document.querySelectorAll('.work-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            const tag = document.getElementById('current-filter-tag');
+            const noWorks = document.getElementById('no-works');
+            let hasVisible = false;
+
+            // 切換按鈕狀態
+            buttons.forEach(btn => {
+                if (btn.dataset.filter === category) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            // 切換標題文字
+            tag.innerText = category === 'all' ? 'all collections.' : category + ' collection.';
+
+            // 執行篩選動畫
+            items.forEach(item => {
+                const itemCat = item.dataset.category;
+                if (category === 'all' || itemCat === category) {
+                    item.classList.remove('hidden');
+                    hasVisible = true;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            // 顯示無作品提示
+            if (!hasVisible) noWorks.classList.remove('hidden');
+            else noWorks.classList.add('hidden');
+
+            // 只有在不是首頁載入時才滾動，避免干擾
+            const contentSection = document.getElementById('content');
+            contentSection.scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
