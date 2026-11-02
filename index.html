@@ -24,11 +24,9 @@
             overflow-x: hidden;
             background-image: radial-gradient(#d1bfa7 0.5px, transparent 0.5px);
             background-size: 30px 30px;
-            /* 隱藏系統預設游標 */
             cursor: none;
         }
         
-        /* 確保所有可點擊元素也不顯示預設游標 */
         a, button, [onclick], .filter-btn {
             cursor: none !important;
         }
@@ -37,7 +35,6 @@
         .font-serif-tc { font-family: 'Noto Serif TC', serif; }
         .font-hand { font-family: 'Zeyada', cursive; }
         
-        /* 導覽列捲動效果 */
         nav { transition: all 0.4s ease-in-out; }
         nav.scrolled {
             background-color: rgba(255, 255, 255, 0.85);
@@ -47,7 +44,6 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* 互動篩選標籤設計 */
         .filter-btn {
             display: flex;
             align-items: center;
@@ -90,7 +86,6 @@
             transition: color 0.3s ease;
         }
 
-        /* 作品卡片過濾動畫 */
         .work-item {
             transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -141,7 +136,7 @@
             gap: 16px;
             height: 100%;
         }
-        /* 手機版優化：針對紙祀增加高度 */
+
         @media (max-width: 768px) {
             .zhisi-grid { 
                 display: flex;
@@ -163,7 +158,6 @@
 
         html { scroll-behavior: smooth; }
 
-        /* 滑鼠跟隨裝飾 */
         .cursor-dot {
             width: 12px;
             height: 12px;
@@ -177,7 +171,6 @@
             transition: transform 0.15s ease-out, background-color 0.2s ease;
         }
 
-        /* 跑馬燈效果 */
         .marquee-container {
             overflow: hidden;
             background-color: #fdfaf8;
@@ -216,7 +209,6 @@
             <h1 class="text-7xl md:text-9xl font-serif font-bold leading-[0.8] mb-8 text-[#4a3a35]">Portfolio</h1>
             <div class="space-y-6">
                 <div class="flex items-baseline gap-4">
-                    <!-- 「鐘霈芸」套用繁體中文襯線體 Noto Serif TC，字間距 tracking-[0.12em] -->
                     <h2 class="text-3xl md:text-4xl font-serif-tc font-semibold tracking-[0.12em] text-[#4a3a35]">鐘霈芸</h2>
                     <span class="text-base md:text-lg font-serif italic text-gray-400 tracking-wide">Pei-Yun Chung</span>
                 </div>
@@ -333,6 +325,7 @@
                         </span>
                     </div>
                 </div>
+
                 <!-- 2026 金點概念 -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div class="flex items-start md:items-center gap-4">
@@ -351,6 +344,7 @@
                         </span>
                     </div>
                 </div>
+
                 <!-- 2026 Taiwan T-Star -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div class="flex items-center gap-4">
@@ -359,6 +353,7 @@
                     </div>
                     <span class="px-3 py-1 bg-gray-50 text-clay text-xs font-semibold rounded-full self-start md:self-auto">優選</span>
                 </div>
+
                 <!-- 2026 A+文化資產創意獎 -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div class="flex items-center gap-4">
@@ -367,55 +362,62 @@
                     </div>
                     <span class="px-3 py-1 bg-gray-50 text-clay text-xs font-semibold rounded-full self-start md:self-auto">佳作</span>
                 </div>
+
                 <!-- 2026 ISARCH -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div class="flex items-center gap-4">
                         <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2026</span>
                         <h3 class="text-base font-medium text-[#4a3a35]">ISARCH</h3>
-                        <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍決選</span>
                     </div>
-                    <!-- 2026 TISDC -->
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <div class="flex items-center gap-4">
-                            <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2026</span>
-                            <h3 class="text-base font-medium text-[#4a3a35]">TISDC 台灣國際學生設計大賽</h3>
-                        </div>
-                        <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍決選</span>
+                    <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍決選</span>
+                </div>
+
+                <!-- 2026 TISDC -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
+                    <div class="flex items-center gap-4">
+                        <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2026</span>
+                        <h3 class="text-base font-medium text-[#4a3a35]">TISDC 台灣國際學生設計大賽</h3>
                     </div>
-                    <!-- 2026 CA 美國傳達藝術獎 -->
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <div class="flex items-center gap-4">
-                            <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2026</span>
-                            <h3 class="text-base font-medium text-[#4a3a35]">CA 美國傳達藝術獎</h3>
-                        </div>
-                        <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍</span>
+                    <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍決選</span>
+                </div>
+
+                <!-- 2026 CA 美國傳達藝術獎 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
+                    <div class="flex items-center gap-4">
+                        <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2026</span>
+                        <h3 class="text-base font-medium text-[#4a3a35]">CA 美國傳達藝術獎</h3>
                     </div>
-                    <!-- 2026 放視大賞 -->
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <div class="flex items-center gap-4">
-                            <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2026</span>
-                            <h3 class="text-base font-medium text-[#4a3a35]">放視大賞 視覺設計組</h3>
-                        </div>
-                        <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍複選</span>
+                    <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍</span>
+                </div>
+
+                <!-- 2026 放視大賞 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
+                    <div class="flex items-center gap-4">
+                        <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2026</span>
+                        <h3 class="text-base font-medium text-[#4a3a35]">放視大賞 視覺設計組</h3>
                     </div>
-                    <!-- 2025 時報金犢獎 1 -->
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <div class="flex items-center gap-4">
-                            <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2025</span>
-                            <h3 class="text-base font-medium text-[#4a3a35]">時報金犢獎 永慶房屋雇主品牌招募廣告設計獎</h3>
-                        </div>
-                        <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍</span>
+                    <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍複選</span>
+                </div>
+
+                <!-- 2025 時報金犢獎 1 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
+                    <div class="flex items-center gap-4">
+                        <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2025</span>
+                        <h3 class="text-base font-medium text-[#4a3a35]">時報金犢獎 永慶房屋雇主品牌招募廣告設計獎</h3>
                     </div>
-                    <!-- 2025 時報金犢獎 2 -->
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
-                        <div class="flex items-center gap-4">
-                            <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2025</span>
-                            <h3 class="text-base font-medium text-[#4a3a35]">時報金犢獎 旺旺集團產品廣告設計獎</h3>
-                        </div>
-                        <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍</span>
+                    <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍</span>
+                </div>
+
+                <!-- 2025 時報金犢獎 2 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
+                    <div class="flex items-center gap-4">
+                        <span class="w-14 text-center text-xs font-serif font-bold text-pink-400 bg-pink-50 py-1.5 rounded-lg border border-pink-100 flex-shrink-0">2025</span>
+                        <h3 class="text-base font-medium text-[#4a3a35]">時報金犢獎 旺旺集團產品廣告設計獎</h3>
                     </div>
+                    <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍</span>
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- 作品集內容區塊 -->
@@ -601,11 +603,10 @@
             dot.style.left = e.clientX + 'px';
             dot.style.top = e.clientY + 'px';
             
-            // 當滑鼠移動到可點擊元素上時發揮互動效果
             const target = e.target;
             if (target.tagName === 'A' || target.closest('.filter-btn') || target.hasAttribute('onclick')) {
                 dot.style.transform = 'translate(-50%, -50%) scale(2)';
-                dot.style.background = '#f4d9d9'; // 變更為粉色提示
+                dot.style.background = '#f4d9d9';
             } else {
                 dot.style.transform = 'translate(-50%, -50%) scale(1)';
                 dot.style.background = 'var(--clay)';
@@ -627,16 +628,13 @@
             const noWorks = document.getElementById('no-works');
             let hasVisible = false;
 
-            // 切換按鈕狀態
             buttons.forEach(btn => {
                 if (btn.dataset.filter === category) btn.classList.add('active');
                 else btn.classList.remove('active');
             });
 
-            // 更新標籤文字
             tag.innerText = category === 'all' ? 'all collections.' : category + ' collection.';
 
-            // 執行篩選邏輯
             items.forEach(item => {
                 const itemCat = item.dataset.category;
                 if (category === 'all' || itemCat === category) {
@@ -647,11 +645,9 @@
                 }
             });
 
-            // 處理無作品狀態
             if (!hasVisible) noWorks.classList.remove('hidden');
             else noWorks.classList.add('hidden');
 
-            // 執行平滑跳轉至作品區域
             const contentSection = document.getElementById('content');
             if (contentSection) {
                 contentSection.scrollIntoView({ behavior: 'smooth' });
