@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>鐘霈芸 | Portfolio</title>
-    <!-- 引入樣式與字體 -->
+    <!-- 引入樣式與字體（包含 Noto Serif TC 繁體中文宋體/襯線體） -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Zeyada&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -34,13 +34,14 @@
         }
 
         .font-serif { font-family: 'Playfair Display', serif; }
+        .font-serif-tc { font-family: 'Noto Serif TC', serif; }
         .font-hand { font-family: 'Zeyada', cursive; }
         
         /* 導覽列捲動效果 */
         nav { transition: all 0.4s ease-in-out; }
         nav.scrolled {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
             padding-top: 1rem;
             padding-bottom: 1rem;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
@@ -54,9 +55,8 @@
             padding: 16px 28px;
             background-color: var(--soft-white);
             border-radius: 16px;
-            border: 1px solid rgba(166, 139, 129, 0.1);
+            border: 1px solid rgba(166, 139, 129, 0.12);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
             width: 100%;
             position: relative;
             overflow: hidden;
@@ -74,17 +74,17 @@
         }
         .filter-btn.active {
             background-color: var(--deep-brown);
-            transform: translateX(12px);
-            box-shadow: 10px 10px 30px rgba(74, 58, 53, 0.15);
+            transform: translateX(10px);
+            box-shadow: 8px 12px 24px rgba(74, 58, 53, 0.15);
         }
         .filter-btn.active::before { transform: scaleY(1); }
         .filter-btn.active .filter-label { color: white; }
         .filter-btn.active i { color: var(--accent-pink); }
         
         .filter-label {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--clay);
             transition: color 0.3s ease;
@@ -92,11 +92,11 @@
 
         /* 作品卡片過濾動畫 */
         .work-item {
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .work-item.hidden {
             opacity: 0;
-            transform: scale(0.9) translateY(20px);
+            transform: scale(0.95) translateY(20px);
             pointer-events: none;
             display: none;
         }
@@ -138,7 +138,7 @@
         .zhisi-grid {
             display: grid;
             grid-template-columns: 1fr 1.5fr 1fr;
-            gap: 12px;
+            gap: 16px;
             height: 100%;
         }
         /* 手機版優化：針對紙祀增加高度 */
@@ -147,7 +147,7 @@
                 display: flex;
                 flex-direction: column;
                 height: auto;
-                min-height: 800px; 
+                min-height: 800px;
                 gap: 16px;
             }
             .zhisi-grid .video-container {
@@ -156,7 +156,7 @@
                 flex-shrink: 0;
             }
             .zhisi-grid .photo-container {
-                flex: 1; 
+                flex: 1;
                 width: 100%;
             }
         }
@@ -172,10 +172,9 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.8;
-            /* 讓裝飾點中心對準游標 */
+            opacity: 0.85;
             transform: translate(-50%, -50%);
-            transition: transform 0.1s ease-out;
+            transition: transform 0.15s ease-out, background-color 0.2s ease;
         }
 
         /* 跑馬燈效果 */
@@ -186,7 +185,7 @@
         .marquee-content {
             display: flex;
             width: fit-content;
-            animation: marquee 20s linear infinite;
+            animation: marquee 22s linear infinite;
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
@@ -197,32 +196,34 @@
 <body class="antialiased">
 
     <!-- 頂部導覽列 -->
-    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 p-6 md:px-10 md:py-8 flex justify-between items-center">
+    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 p-6 md:px-12 md:py-8 flex justify-between items-center">
         <div class="text-xl font-serif font-bold text-clay tracking-tighter">PeiYun's Portfolio</div>
-        <div class="space-x-8 text-[10px] tracking-[0.3em] uppercase hidden md:flex font-bold">
+        <div class="space-x-8 text-[11px] tracking-[0.3em] uppercase hidden md:flex font-bold">
             <a href="#home" class="hover:text-pink-400 transition">Home</a>
             <a href="#about" class="hover:text-pink-400 transition">About</a>
+            <a href="#awards" class="hover:text-pink-400 transition">Awards</a>
             <a href="#content" onclick="filterWorks('all')" class="hover:text-pink-400 transition">Works</a>
             <a href="#contact" class="hover:text-pink-400 transition">Contact</a>
         </div>
     </nav>
 
     <!-- 首頁區塊 -->
-    <section id="home" class="min-h-screen flex flex-col md:flex-row-reverse items-center md:items-start justify-center px-6 md:px-24 pt-32 md:pt-48 pb-20 gap-12 md:gap-20">
+    <section id="home" class="min-h-screen flex flex-col md:flex-row-reverse items-center md:items-start justify-center px-6 md:px-24 pt-32 md:pt-44 pb-20 gap-12 md:gap-20">
         
         <!-- 標題文字區 -->
         <div class="w-full md:w-1/2 md:pt-8 text-left">
-            <div class="inline-block px-3 py-1 bg-white rounded-full text-[9px] tracking-widest uppercase mb-6 shadow-sm border border-pink-100/50">SELECTED WORKS 2026</div>
+            <div class="inline-block px-4 py-1.5 bg-white rounded-full text-[9px] tracking-widest uppercase mb-6 shadow-sm border border-pink-100/60 font-semibold text-clay">SELECTED WORKS 2026</div>
             <h1 class="text-7xl md:text-9xl font-serif font-bold leading-[0.8] mb-8 text-[#4a3a35]">Portfolio</h1>
             <div class="space-y-6">
                 <div class="flex items-baseline gap-4">
+                    <!-- 「鐘霈芸」套用繁體中文襯線體 Noto Serif TC，字間距 tracking-[0.12em] -->
                     <h2 class="text-3xl md:text-4xl font-serif-tc font-semibold tracking-[0.12em] text-[#4a3a35]">鐘霈芸</h2>
                     <span class="text-base md:text-lg font-serif italic text-gray-400 tracking-wide">Pei-Yun Chung</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="h-[1px] w-10 bg-pink-300"></div>
                     <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
-                        <p class="text-xs md:text-sm tracking-[0.5em] font-medium text-clay uppercase">行政企劃 ‧ 視覺設計</p>
+                        <p class="text-xs md:text-sm tracking-[0.4em] font-medium text-clay uppercase">行 政 企 劃 ‧ 視 覺 設 計</p>
                         <span class="hidden md:block text-pink-200 font-thin">|</span>
                         <p class="text-[10px] tracking-[0.1em] font-light text-gray-400 uppercase italic">Executive Assistance & Visual Design</p>
                     </div>
@@ -231,74 +232,74 @@
         </div>
 
         <!-- 作品篩選控制中心 -->
-        <div class="w-full md:w-1/2 max-w-sm relative">
-            <div class="mb-10">
-                <p class="text-[10px] tracking-[0.4em] text-clay font-bold uppercase opacity-50 mb-2">Projects Filter</p>
+        <div class="w-full md:w-1/2 max-sm:max-w-xs max-w-sm relative">
+            <div class="mb-8">
+                <p class="text-[10px] tracking-[0.4em] text-clay font-bold uppercase opacity-60 mb-2">Projects Filter</p>
             </div>
             
-            <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-3.5">
                 <div onclick="filterWorks('all')" class="filter-btn active" data-filter="all">
-                    <i data-lucide="layout-grid"></i>
+                    <i data-lucide="layout-grid" class="w-5 h-5"></i>
                     <span class="filter-label">All Projects / 全部展示</span>
                 </div>
                 <div onclick="filterWorks('web')" class="filter-btn" data-filter="web">
-                    <i data-lucide="layout"></i>
+                    <i data-lucide="layout" class="w-5 h-5"></i>
                     <span class="filter-label">Web Design / 網頁</span>
                 </div>
                 <div onclick="filterWorks('app')" class="filter-btn" data-filter="app">
-                    <i data-lucide="smartphone"></i>
+                    <i data-lucide="smartphone" class="w-5 h-5"></i>
                     <span class="filter-label">App UI/UX / 行動應用</span>
                 </div>
                 <div onclick="filterWorks('graphic')" class="filter-btn" data-filter="graphic">
-                    <i data-lucide="palette"></i>
+                    <i data-lucide="palette" class="w-5 h-5"></i>
                     <span class="filter-label">Graphic Design / 平面</span>
                 </div>
                 <div onclick="filterWorks('video')" class="filter-btn" data-filter="video">
-                    <i data-lucide="film"></i>
+                    <i data-lucide="film" class="w-5 h-5"></i>
                     <span class="filter-label">Video / 影片作品</span>
                 </div>
                 <div onclick="filterWorks('product')" class="filter-btn" data-filter="product">
-                    <i data-lucide="box"></i>
+                    <i data-lucide="box" class="w-5 h-5"></i>
                     <span class="filter-label">Product / 產品設計</span>
                 </div>
             </div>
             
-            <div class="mt-10 mb-10 md:mb-0">
+            <div class="mt-8 mb-8 md:mb-0">
                 <span class="font-hand text-xl text-pink-400 opacity-90">Select to View →</span>
             </div>
         </div>
     </section>
 
     <!-- 關於我區塊 -->
-    <section id="about" class="py-24 px-6 md:px-20 bg-white/50">
+    <section id="about" class="py-24 px-6 md:px-20 bg-white/50 border-y border-pink-100/30">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16">
             <div class="w-full md:w-2/5">
-                <div class="bg-white p-3 rounded-2xl shadow-xl transform -rotate-2">
+                <div class="bg-white p-3.5 rounded-2xl shadow-xl transform -rotate-2 hover:rotate-0 transition duration-500">
                     <div class="aspect-[4/5] bg-[#fdf2f2] rounded-xl overflow-hidden relative">
-                        <img src="./images/profile.png" alt="鐘霈芸個人照" class="portfolio-img">
+                        <img src="./images/profile.png" alt="鐘霈芸個人照" class="portfolio-img" onerror="this.src='https://placehold.co/400x500/f4d9d9/5d4a44?text=Pei-Yun+Chung'">
                     </div>
                 </div>
             </div>
             <div class="w-full md:w-3/5">
-                <h2 class="text-3xl font-serif mb-8 italic">你好！我是鐘霈芸</h2>
-                <p class="text-lg leading-[2] mb-3 text-gray-600 font-light">
+                <h2 class="text-3xl md:text-4xl font-serif mb-8 italic text-[#4a3a35]">你好！我是鐘霈芸</h2>
+                <p class="text-base md:text-lg leading-[2] mb-4 text-gray-600 font-light">
                     我習慣從觀察中推導事情的脈絡，整理問題與方向，做事講求條理與效率，也重視實際執行的完整度。對新事物總抱有高度好奇，享受接觸陌生領域時的學習過程與成就感。面對不同的人與狀況時，能快速理解需求並靈活應對，在溝通與合作中找到適合的平衡方式。
                 </p>
-                <p class="text-lg leading-[2] mb-10 text-gray-600 font-light">
+                <p class="text-base md:text-lg leading-[2] mb-10 text-gray-600 font-light">
                     除了設計，我也喜歡記錄日常、剪輯影片，並透過展覽、市集與音樂活動感受不同的生活氛圍，這些體驗也常成為我在創作時的靈感來源。
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm">
                     <div class="space-y-1">
                         <p class="font-bold text-clay uppercase tracking-widest text-[14px]">生日</p>
-                        <p class="opacity-80">2003年09月23日</p>
+                        <p class="text-gray-600 font-medium">2003年09月23日</p>
                     </div>
                     <div class="space-y-1">
                         <p class="font-bold text-clay uppercase tracking-widest text-[14px]">學歷背景</p>
-                        <p class="opacity-80">銘傳大學 商業設計系</p>
+                        <p class="text-gray-600 font-medium">銘傳大學 商業設計系</p>
                     </div>
                     <div class="space-y-1">
                         <p class="font-bold text-clay uppercase tracking-widest text-[14px]">所在地點</p>
-                        <p class="opacity-80">台北 / 台灣</p>
+                        <p class="text-gray-600 font-medium">台北 / 台灣</p>
                     </div>
                 </div>
             </div>
@@ -374,7 +375,7 @@
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-pink-100/40 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div class="flex items-center gap-4">
                         <span class="text-xs font-serif font-bold text-gray-400 bg-gray-50 px-3 py-1 rounded-lg">2026</span>
-                        <h3 class="text-base font-medium text-[#4a3a35]">ISARCH Awards</h3>
+                        <h3 class="text-base font-medium text-[#4a3a35]">ISARCH</h3>
                     </div>
                     <span class="px-3 py-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full self-start md:self-auto">入圍決選</span>
                 </div>
@@ -430,8 +431,8 @@
     <!-- 作品集內容區塊 -->
     <section id="content" class="py-24 px-6 md:px-20 min-h-screen">
         <div class="max-w-6xl mx-auto">
-            <div class="flex items-center justify-between mb-16 border-b border-pink-100 pb-8">
-                <h2 class="text-4xl font-serif italic">Content</h2>
+            <div class="flex items-center justify-between mb-16 border-b border-pink-100/80 pb-6">
+                <h2 class="text-4xl font-serif italic text-[#4a3a35]">Content</h2>
                 <span id="current-filter-tag" class="font-hand text-2xl text-pink-400">all collections.</span>
             </div>
             
@@ -442,7 +443,7 @@
                     <a href="https://breadnbutterbakery.webflow.io" target="_blank" class="group block">
                         <div class="mb-3 flex items-baseline gap-3">
                             <span class="text-3xl font-serif text-pink-200">01</span>
-                            <h3 class="text-xl font-bold font-serif flex items-center gap-2">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
+                            <h3 class="text-xl font-bold font-serif flex items-center gap-2 group-hover:text-pink-400 transition">麵包坊網站<i data-lucide="external-link" class="w-4 h-4 opacity-50"></i></h3>
                         </div>
                         <div class="relative overflow-hidden rounded-2xl shadow-sm bg-white p-2">
                             <div class="uniform-aspect-box">
@@ -610,7 +611,7 @@
             dot.style.left = e.clientX + 'px';
             dot.style.top = e.clientY + 'px';
             
-            // 當滑鼠移動到連結上時，可以加上一些微動效
+            // 當滑鼠移動到可點擊元素上時發揮互動效果
             const target = e.target;
             if (target.tagName === 'A' || target.closest('.filter-btn') || target.hasAttribute('onclick')) {
                 dot.style.transform = 'translate(-50%, -50%) scale(2)';
@@ -621,7 +622,7 @@
             }
         });
 
-        // 導覽列效果
+        // 導覽列捲動效果
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('main-nav');
             if (window.scrollY > 50) nav.classList.add('scrolled');
@@ -660,7 +661,7 @@
             if (!hasVisible) noWorks.classList.remove('hidden');
             else noWorks.classList.add('hidden');
 
-            // 執行跳轉與捲動
+            // 執行平滑跳轉至作品區域
             const contentSection = document.getElementById('content');
             if (contentSection) {
                 contentSection.scrollIntoView({ behavior: 'smooth' });
